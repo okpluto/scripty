@@ -14,4 +14,5 @@ app.use(bodyParser.json());
 
 app.get('/', (req, res) => {});
 
+log(`Listening on port ${process.env.PORT || 3011}`)
 app.listen(process.env.PORT || 3011);
