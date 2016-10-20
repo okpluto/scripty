@@ -1,0 +1,17 @@
+var express = require('express');
+var bodyParser = require('body-parser');
+var chalk = require('chalk');
+
+var log = require('./helpers/log');
+
+var app = express();
+
+app.use((req, res, next) => {
+  log(`Request recieved from ${req.url} with method ${req.method}.`);
+});
+
+app.use(bodyParser.json());
+
+app.get('/', (req, res) => {});
+
+app.listen(process.env.PORT || 3011);
