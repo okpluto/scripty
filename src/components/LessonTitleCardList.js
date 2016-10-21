@@ -5,7 +5,7 @@ import LessonTitleCard from './lessonTitleCard';
 const LessonTitleCardList = () => {
   const {viewStyle} = styles;
   return (
-    <ScrollView showsVerticalScrollIndicator={false} style={viewStyle} >
+    <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={viewStyle} >
       <LessonTitleCard lessonTitle='Hello World!' />
       <LessonTitleCard lessonTitle='Functions' />
       <LessonTitleCard lessonTitle='For loops' />
@@ -17,6 +17,9 @@ const LessonTitleCardList = () => {
 
 const styles = {
   viewStyle: {
+    alignItems: 'center',
+    paddingTop: 60,
+    paddingBottom: 20,
   }
 }
 

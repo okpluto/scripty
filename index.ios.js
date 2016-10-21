@@ -22,46 +22,32 @@ import LessonTitleCardList from './src/components/LessonTitleCardList';
 
 
 class scripty extends Component {
+  
   renderScene(route, navigator) {
-    console.log('ROUTE - ',route,'NAVIGATOR-', navigator)
-
-    return <LessonTitleCardList style={{zIndex:1, flex:1}} navigator={navigator} />
+    const { name } = route;
+    if (name === 'Home') {
+      return <LessonTitleCardList />
+    }
   }
 
   render() {
-    const { viewStyle, textStyle } = styles;
-
     return (
-      <View style={viewStyle}>
-        <StatusBar barStyle="light-content" />
-        <Header />
-        <Navigator style={{zIndex:1, flex:1}} initialRoute={{ name:'Home' }} renderScene={this.renderScene.bind(this)} />
-      </View>
+      <Navigator 
+      style={{ backgroundColor: '#F0F5F9', }} 
+      navigationBar={<Header />}
+      initialRoute={{ name:'Home' }} 
+      renderScene={this.renderScene} 
+      />
     )
   }
-
 }
-
-
-const styles = {
-  viewStyle: {
-    // backgroundColor: '#F0F5F9',
-    // backgroundColor: 'transparent',
-    alignItems: 'center',
-    height: Dimensions.get("window").height,
-    width: Dimensions.get("window").width,
-    zIndex: -1,
-    flex: 1,
-  },
-  textStyle: {
-    color: 'white',
-    fontSize: 20,
-  }
-}
-
-
-
 
 
 
 AppRegistry.registerComponent('scripty', () => scripty);
+
+
+
+
+
+
