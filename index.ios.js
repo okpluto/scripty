@@ -9,45 +9,55 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  ScrollView,
+  StatusBar,
+  Dimensions
 } from 'react-native';
+import Header from './src/components/header';
+import LessonTitleCard from './src/components/lessonTitleCard';
 
-export default class scripty extends Component {
+
+class scripty extends Component {
+
   render() {
+    const { viewStyle, textStyle } = styles;
+
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
+      <View style={viewStyle}>
+        <StatusBar barStyle="light-content" />
+        <Header />
+        <ScrollView showsVerticalScrollIndicator={false}> 
+          <LessonTitleCard lessonTitle='Hello World!' />
+          <LessonTitleCard lessonTitle='Functions' />
+          <LessonTitleCard lessonTitle='For loops' />
+          <LessonTitleCard lessonTitle='Objects' />
+          <LessonTitleCard lessonTitle='Arrays' />
+        </ScrollView>
       </View>
-    );
+    )
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
+
+const styles = {
+  viewStyle: {
+    backgroundColor: '#F0F5F9',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    elevation: 0,
+    height: Dimensions.get("window").height,
+    width: Dimensions.get("window").width,
+    paddingBottom: 20,
   },
-  welcome: {
+  textStyle: {
+    color: 'white',
     fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+  }
+}
+
+
+
+
+
 
 AppRegistry.registerComponent('scripty', () => scripty);
