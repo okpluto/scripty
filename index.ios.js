@@ -27,7 +27,7 @@ class scripty extends Component {
       <View style={viewStyle}>
         <StatusBar barStyle="light-content" />
         <Header />
-        <ScrollView showsVerticalScrollIndicator={false}> 
+        <ScrollView showsVerticalScrollIndicator={false} > 
           <LessonTitleCard lessonTitle='Hello World!' />
           <LessonTitleCard lessonTitle='Functions' />
           <LessonTitleCard lessonTitle='For loops' />
@@ -47,7 +47,6 @@ const styles = {
     elevation: 0,
     height: Dimensions.get("window").height,
     width: Dimensions.get("window").width,
-    paddingBottom: 20,
   },
   textStyle: {
     color: 'white',
