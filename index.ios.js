@@ -12,13 +12,21 @@ import {
   View,
   ScrollView,
   StatusBar,
-  Dimensions
+  Dimensions,
+  Navigator
 } from 'react-native';
 import Header from './src/components/header';
 import LessonTitleCard from './src/components/lessonTitleCard';
+import LessonTitleCardList from './src/components/LessonTitleCardList';
+
 
 
 class scripty extends Component {
+  renderScene(route, navigator) {
+    console.log('ROUTE - ',route,'NAVIGATOR-', navigator)
+
+    return <LessonTitleCardList style={{zIndex:1, flex:1}} navigator={navigator} />
+  }
 
   render() {
     const { viewStyle, textStyle } = styles;
@@ -34,19 +42,23 @@ class scripty extends Component {
           <LessonTitleCard lessonTitle='Objects' />
           <LessonTitleCard lessonTitle='Arrays' />
         </ScrollView>
+        <Navigator style={{zIndex:1, flex:1}} initialRoute={{ name:'Home' }} renderScene={this.renderScene.bind(this)} />
       </View>
     )
   }
+
 }
 
 
 const styles = {
   viewStyle: {
-    backgroundColor: '#F0F5F9',
+    // backgroundColor: '#F0F5F9',
+    // backgroundColor: 'transparent',
     alignItems: 'center',
-    elevation: 0,
     height: Dimensions.get("window").height,
     width: Dimensions.get("window").width,
+    zIndex: -1,
+    flex: 1,
   },
   textStyle: {
     color: 'white',
