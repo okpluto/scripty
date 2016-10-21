@@ -2,9 +2,10 @@ var mongoose = require('mongoose');
 mongoose.connect('/config.js');
 
 var readingSchema = mongoose.Schema({
-  text: String
+  text: String,
+  lesson: {type: Number, ref: 'lesson'}
 });
 
-var Readings = mongoose.model("Readings", readingSchema);
+var Readings = mongoose.model('Readings', readingSchema);
 
 module.exports = Readings;
