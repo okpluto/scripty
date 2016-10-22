@@ -38,6 +38,7 @@ const styles = {
   textStyle: {
     color: 'white',
     fontSize: 20,
+    fontFamily: 'Futura',
   }
 }
 

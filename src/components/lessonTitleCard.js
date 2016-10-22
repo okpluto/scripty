@@ -4,13 +4,19 @@ import { Text, View, Dimensions, TouchableHighlight } from 'react-native';
 
 
 
-const LessonTitleCard = ({ lessonTitle }) => {
-  const { viewStyle, textStyle, circleStyle } = styles;
+const LessonTitleCard = ({ lessonTitle, navigator }) => {
+  const { buttonStyle, viewStyle, textStyle, circleStyle } = styles;
+
+  const navigate = (routeName) => {
+    navigator.pop()
+  };
 
   return (
-    <TouchableHighlight onPress={navigate.bind(this, 'Login')} style={viewStyle}>
-      <View style={circleStyle}></View>
-      <Text style={textStyle}>{lessonTitle}</Text>
+    <TouchableHighlight onPress={navigate.bind(this, 'Login')} underlayColor={grey} style={buttonStyle}>
+      <View style={viewStyle}>
+        <View style={circleStyle}></View>
+        <Text style={textStyle}>{lessonTitle}</Text>
+      </View>
     </TouchableHighlight>
   )
 };
@@ -19,7 +25,7 @@ const LessonTitleCard = ({ lessonTitle }) => {
 const grey = '#FAFAFA'
 
 const styles = {
-  viewStyle: {
+  buttonStyle: {
     backgroundColor: 'white',
 
     alignItems: 'center',
@@ -28,12 +34,17 @@ const styles = {
     height: 120,
     width: Dimensions.get("window").width - 40,
     marginTop: 20,
-    borderRadius: 10,
+    borderRadius: 7,
 
     shadowColor: 'black',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     elevation: 2,
+  },
+  viewStyle: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    height: 120,
   },
   textStyle: {
     color: '#1c1c1c',

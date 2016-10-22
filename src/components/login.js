@@ -3,7 +3,7 @@ import { Text, View, Dimensions, TouchableHighlight } from 'react-native';
 
 
 const Login = ({navigator}) => {
-  const { viewStyle, cardStyle, textStyle, pinkCardStyle, whiteCardStyle, darkTextStyle, lightTextStyle} = styles;
+  const { title, viewStyle, cardStyle, textStyle, pinkCardStyle, whiteCardStyle, darkTextStyle, lightTextStyle} = styles;
 
   const navigate = (routeName) => {
     navigator.push({name:routeName})
@@ -11,6 +11,7 @@ const Login = ({navigator}) => {
 
   return (
     <View style={viewStyle}>
+      <Text style={title}>Scripty</Text> 
       <TouchableHighlight onPress={navigate.bind(this, 'Home')} style={{...cardStyle, ...pinkCardStyle}} underlayColor={darkCoral} >
         <Text style={lightTextStyle}>Log In</Text>
       </TouchableHighlight>
@@ -27,10 +28,16 @@ const darkCoral = '#DE757A'
 const grey = '#FAFAFA'
 
 const styles = {
+  title: {
+    color: coral,
+    fontSize: 60,
+    fontFamily: 'Futura'
+  },
   viewStyle: {
+    height: Dimensions.get("window").height,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: Dimensions.get("window").height / 2 - 60,
+    backgroundColor: 'white'
   },
   cardStyle: {
     alignItems: 'center',
