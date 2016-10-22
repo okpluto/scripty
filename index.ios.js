@@ -22,7 +22,7 @@ import LessonTitleCardList from './src/components/LessonTitleCardList';
 
 
 class scripty extends Component {
-  
+
   renderScene(route, navigator) {
     const { name } = route;
     if (name === 'Home') {

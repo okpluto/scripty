@@ -16,7 +16,6 @@ const Header = () => {
 
 
 
-
 const styles = {
   viewStyle: {
     backgroundColor: '#FA848A',
