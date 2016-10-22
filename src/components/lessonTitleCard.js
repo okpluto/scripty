@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Dimensions } from 'react-native';
+import { Text, View, Dimensions, TouchableHighlight } from 'react-native';
 
 
 
@@ -8,13 +8,15 @@ const LessonTitleCard = ({ lessonTitle }) => {
   const { viewStyle, textStyle, circleStyle } = styles;
 
   return (
-    <View style={viewStyle}>
+    <TouchableHighlight onPress={navigate.bind(this, 'Login')} style={viewStyle}>
       <View style={circleStyle}></View>
       <Text style={textStyle}>{lessonTitle}</Text>
-    </View>
+    </TouchableHighlight>
   )
 };
 
+
+const grey = '#FAFAFA'
 
 const styles = {
   viewStyle: {

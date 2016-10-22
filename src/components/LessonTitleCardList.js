@@ -20,6 +20,7 @@ const styles = {
     alignItems: 'center',
     paddingTop: 60,
     paddingBottom: 20,
+    backgroundColor: '#F0F5F9'
   }
 }
 
