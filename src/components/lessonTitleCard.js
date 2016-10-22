@@ -1,31 +1,23 @@
 import React, { Component } from 'react';
-import { Text, View, Dimensions, TouchableHighlight } from 'react-native';
+import { Text, View, Dimensions } from 'react-native';
 
 
 
 
-const LessonTitleCard = ({ lessonTitle, navigator }) => {
-  const { buttonStyle, viewStyle, textStyle, circleStyle } = styles;
-
-  const navigate = (routeName) => {
-    navigator.pop()
-  };
+const LessonTitleCard = ({ lessonTitle }) => {
+  const { viewStyle, textStyle, circleStyle } = styles;
 
   return (
-    <TouchableHighlight onPress={navigate.bind(this, 'Login')} underlayColor={grey} style={buttonStyle}>
-      <View style={viewStyle}>
-        <View style={circleStyle}></View>
-        <Text style={textStyle}>{lessonTitle}</Text>
-      </View>
-    </TouchableHighlight>
+    <View style={viewStyle}>
+      <View style={circleStyle}></View>
+      <Text style={textStyle}>{lessonTitle}</Text>
+    </View>
   )
 };
 
 
-const grey = '#FAFAFA'
-
 const styles = {
-  buttonStyle: {
+  viewStyle: {
     backgroundColor: 'white',
 
     alignItems: 'center',
@@ -34,17 +26,12 @@ const styles = {
     height: 120,
     width: Dimensions.get("window").width - 40,
     marginTop: 20,
-    borderRadius: 7,
+    borderRadius: 10,
 
     shadowColor: 'black',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     elevation: 2,
-  },
-  viewStyle: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    height: 120,
   },
   textStyle: {
     color: '#1c1c1c',

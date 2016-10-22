@@ -16,6 +16,7 @@ const Header = () => {
 
 
 
+
 const styles = {
   viewStyle: {
     backgroundColor: '#FA848A',
@@ -38,7 +39,6 @@ const styles = {
   textStyle: {
     color: 'white',
     fontSize: 20,
-    fontFamily: 'Futura',
   }
 }
 
