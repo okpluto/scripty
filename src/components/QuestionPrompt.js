@@ -6,7 +6,7 @@ const QuestionPrompt = ({ text }) => {
 
   return (
     <View style={viewStyle}>
-      <Text style={textStyle}> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nunc augue, mollis in nisi eget, pulvinar interdum velit. Nulla lectus nunc, eleifend sed sapien at, fermentum elementum eros. Mauris sed. </Text>
+      <Text style={textStyle}>{text}</Text>
     </View>
   )
 };

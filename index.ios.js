@@ -30,9 +30,9 @@ class scripty extends Component {
     if (name === 'Home') {
       return <LessonTitleCardList navigator={navigator} />
     } else if (name === 'Login') {
-      return <Login navigator={navigator}/>
+      return <Login navigator={navigator} />
     } else if (name === 'Lesson') {
-      return <Lesson navigator={navigator}/>
+      return <Lesson questionText={mockLesson.questions[0].prompt} possibleAnswers={mockLesson.questions[0].answers} correctAnswer={mockLesson.questions[0].correctAnswer} navigator={navigator} />
     }
   }
 
@@ -46,6 +46,19 @@ class scripty extends Component {
       />
     )
   }
+};
+
+
+
+const mockLesson = {
+  title: 'Hello World!',
+  questions: [
+    {
+      prompt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nunc augue, mollis in nisi eget, pulvinar interdum velit. Nulla lectus nunc, eleifend sed sapien at, fermentum elementum eros. Mauris sed.',
+      answers: ['console.log', 'print', 'display'],
+      correctAnswer: 'console.log'
+    }
+  ]
 }
 
 
