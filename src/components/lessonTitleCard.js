@@ -31,15 +31,11 @@ const styles = {
     alignItems: 'center',
     flexDirection: 'row',
 
-    height: 120,
-    width: Dimensions.get("window").width - 40,
-    marginTop: 20,
-    borderRadius: 7,
-
-    shadowColor: 'black',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    elevation: 2,
+    height: 75,
+    width: Dimensions.get("window").width - 20,
+    marginTop: 0,
+    borderColor: '#ecf0f1',
+    borderBottomWidth: 0.5,
   },
   viewStyle: {
     alignItems: 'center',
@@ -48,12 +44,12 @@ const styles = {
   },
   textStyle: {
     color: '#1c1c1c',
-    fontSize: 20,
+    fontSize: 17,
   },
   circleStyle: {
     borderRadius: 100,
-    height: 90,
-    width: 90,
+    height: 30,
+    width: 30,
     backgroundColor: '#4DD8F9',
     marginLeft: 20,
     marginRight: 20,

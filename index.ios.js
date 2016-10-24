@@ -36,7 +36,7 @@ class scripty extends Component {
   render() {
     return (
       <Navigator
-      style={{ backgroundColor: '#F0F5F9', }}
+      style={{ backgroundColor: 'white', }}
       navigationBar={<Header />}
       initialRoute={{ name:'Login' }}
       renderScene={this.renderScene}
