@@ -8,11 +8,11 @@ const LessonTitleCard = ({ lessonTitle, navigator }) => {
   const { buttonStyle, viewStyle, textStyle, circleStyle } = styles;
 
   const navigate = (routeName) => {
-    navigator.pop()
+    navigator.push({name:routeName})
   };
 
   return (
-    <TouchableHighlight onPress={navigate.bind(this, 'Login')} underlayColor={grey} style={buttonStyle}>
+    <TouchableHighlight onPress={navigate.bind(this, 'Lesson')} underlayColor={grey} style={buttonStyle}>
       <View style={viewStyle}>
         <View style={circleStyle}></View>
         <Text style={textStyle}>{lessonTitle}</Text>

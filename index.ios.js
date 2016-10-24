@@ -19,6 +19,7 @@ import Header from './src/components/header';
 import LessonTitleCard from './src/components/lessonTitleCard';
 import LessonTitleCardList from './src/components/LessonTitleCardList';
 import Login from './src/components/login';
+import Lesson from './src/components/Lesson';
 
 
 
@@ -30,6 +31,8 @@ class scripty extends Component {
       return <LessonTitleCardList navigator={navigator} />
     } else if (name === 'Login') {
       return <Login navigator={navigator}/>
+    } else if (name === 'Lesson') {
+      return <Lesson navigator={navigator}/>
     }
   }
 
@@ -38,7 +41,7 @@ class scripty extends Component {
       <Navigator
       style={{ backgroundColor: 'white', }}
       navigationBar={<Header />}
-      initialRoute={{ name:'Login' }}
+      initialRoute={{ name:'Lesson' }}
       renderScene={this.renderScene}
       />
     )
