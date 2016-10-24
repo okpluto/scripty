@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-mongoose.connect("/config.js");
+//mongoose.connect("/config.js");
 //mongoose.connect("mongodb://localhost:test");
 
 
