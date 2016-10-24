@@ -5,7 +5,7 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var lessonSchema = mongoose.Schema({
   title: String,
-  text: String,
+  description: String,
   contents: [ObjectId]
 });
 
