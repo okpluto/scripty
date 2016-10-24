@@ -8,6 +8,6 @@ var problemSchema = mongoose.Schema({
   lesson: {type: Number, ref: 'lesson'}
 });
 
-var Problems = mongoose.model('Problems', problemSchema);
+var Problem = mongoose.model('Problem', problemSchema);
 
-module.exports = Problems;
+module.exports = Problem;
