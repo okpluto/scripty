@@ -4,22 +4,53 @@ var Lesson = require('../lessons');
 var Reading = require('../readings');
 var Problem = require('../problems');
 
-module.exports = new Lesson({
+/*
+ *  DATAYPE: Lesson
+ *
+ *  @title <String> alias lessonTitle
+ *  @description <String> alias lessonDescription
+ *  @contents <Array[Content]> alias lessonContents
+ */
+var testlesson = {
   title: 'Hello World',
-  text: 'Welcome to Javascript!',
+  description: 'Welcome to Javascript!',
+  contents: [
+    {
+      type: 'reading',
+      text: 'This is a test of our lesson schema.'
+    },
+    {
+      type: 'question',
+      text: '_________(\'Hello world!\')',
+      choices: [ 'console.log', 'print' ],
+      answer: 'console.log',
+    }
+  ]
+};
+
+
+module.exports = new Lesson({
+  title: testlesson.title,
+  description: testlesson.description,
 })
 .save(function(err, lesson) {
   new Reading({
-    text: 'This is a test of our lesson schema.',
-    lesson: lesson._id
+    order: 0,
+    text: testlesson.contents[0].text,
+    lessonId: lesson._id
   })
-  .save(console.error.bind(console));
+  .save(function() {
+
+  });
 
   new Problem({
-    text: '_________(\'Hello world!\')',
-    choices: [ 'console.log', 'print' ],
-    answer: 'console.log',
-    lesson: lesson._id
+    order: 1,
+    text: testlesson.contents[1].text,
+    choices: testlesson.contents[1].choices,
+    answer: testlesson.contents[1].answer,
+    lessonId: lesson._id
   })
-  .save(console.error.bind(console));
+  .save(function() {
+
+  });
 });

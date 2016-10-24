@@ -5,8 +5,7 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var lessonSchema = mongoose.Schema({
   title: String,
-  text: String,
-  contents: [ObjectId]
+  description: String,
 });
 
 var Lessons = mongoose.model('Lessons', lessonSchema);

@@ -1,46 +1,55 @@
 import React, { Component } from 'react';
-import { Text, View, Dimensions } from 'react-native';
+import { Text, View, Dimensions, TouchableHighlight } from 'react-native';
 
 
 
 
-const LessonTitleCard = ({ lessonTitle }) => {
-  const { viewStyle, textStyle, circleStyle } = styles;
+const LessonTitleCard = ({ lessonTitle, navigator }) => {
+  const { buttonStyle, viewStyle, textStyle, circleStyle } = styles;
+
+  const navigate = (routeName) => {
+    navigator.push({name:routeName})
+  };
 
   return (
-    <View style={viewStyle}>
-      <View style={circleStyle}></View>
-      <Text style={textStyle}>{lessonTitle}</Text>
-    </View>
+    <TouchableHighlight onPress={navigate.bind(this, 'Lesson')} underlayColor={grey} style={buttonStyle}>
+      <View style={viewStyle}>
+        <View style={circleStyle}></View>
+        <Text style={textStyle}>{lessonTitle}</Text>
+      </View>
+    </TouchableHighlight>
   )
 };
 
 
+const grey = '#FAFAFA'
+
 const styles = {
-  viewStyle: {
+  buttonStyle: {
     backgroundColor: 'white',
 
     alignItems: 'center',
     flexDirection: 'row',
 
+    height: 75,
+    width: Dimensions.get("window").width - 20,
+    marginTop: 0,
+    borderColor: '#ecf0f1',
+    borderBottomWidth: 0.5,
+  },
+  viewStyle: {
+    alignItems: 'center',
+    flexDirection: 'row',
     height: 120,
-    width: Dimensions.get("window").width - 40,
-    marginTop: 20,
-    borderRadius: 10,
-
-    shadowColor: 'black',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    elevation: 2,
   },
   textStyle: {
     color: '#1c1c1c',
-    fontSize: 20,
+    fontSize: 17,
   },
   circleStyle: {
     borderRadius: 100,
-    height: 90,
-    width: 90,
+    height: 30,
+    width: 30,
     backgroundColor: '#4DD8F9',
     marginLeft: 20,
     marginRight: 20,
