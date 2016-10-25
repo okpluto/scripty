@@ -46,7 +46,7 @@ app.get('/api/lessons', function(req, res) {
 
 app.get('/api/lessons/:id', function(req, res) {
   var id = req.params.id;
-  Lessons.findById({_id: ObjectId(id)}, function(err, lesson) {
+  Lessons.findById(id, function(err, lesson) {
     if(err) console.log(err);
     res.json(lesson);
   });
