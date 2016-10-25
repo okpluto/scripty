@@ -11,6 +11,7 @@ var problemSchema = mongoose.Schema({
   lesson: {type: Number, ref: 'lesson'}
 });
 
+<<<<<<< HEAD:mongo/models/problems.js
 
 var Problems = mongoose.model('Problems', problemSchema);
 
@@ -29,3 +30,8 @@ helloWorld.save(function(err, data) {
 })
 
 module.exports = Problems;
+=======
+var Problem = mongoose.model('Problem', problemSchema);
+
+module.exports = Problem;
+>>>>>>> 55c45c77974f59f4cc30abe48efb3ae3e9fc437b:mongo/models/problem.js

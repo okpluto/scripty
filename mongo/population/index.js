@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 
-var Lesson = require('../lessons');
-var Reading = require('../readings');
-var Problem = require('../problems');
+var Lesson = require('../models/lesson');
+var Reading = require('../models/reading');
+var Problem = require('../models/problem');
 
 /*
  *  DATAYPE: Lesson
@@ -29,7 +29,7 @@ var testlesson = {
 };
 
 
-module.exports = new Lesson({
+var createdLesson = new Lesson({
   title: testlesson.title,
   description: testlesson.description,
 })
@@ -39,9 +39,7 @@ module.exports = new Lesson({
     text: testlesson.contents[0].text,
     lessonId: lesson._id
   })
-  .save(function() {
-
-  });
+  .save(console.error.bind('Error saving test reading.'));
 
   new Problem({
     order: 1,
@@ -50,7 +48,7 @@ module.exports = new Lesson({
     answer: testlesson.contents[1].answer,
     lessonId: lesson._id
   })
-  .save(function() {
-
-  });
+  .save(console.error.bind('Error saving test reading.'));
 });
+
+module.exports = createdLesson;

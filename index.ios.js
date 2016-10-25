@@ -20,6 +20,7 @@ import LessonTitleCard from './src/components/lessonTitleCard';
 import LessonTitleCardList from './src/components/LessonTitleCardList';
 import Login from './src/components/login';
 import Lesson from './src/components/Lesson';
+import LessonComplete from './src/components/LessonComplete';
 
 
 
@@ -32,7 +33,9 @@ class scripty extends Component {
     } else if (name === 'Login') {
       return <Login navigator={navigator} />
     } else if (name === 'Lesson') {
-      return <Lesson questionText={mockLesson.questions[0].prompt} possibleAnswers={mockLesson.questions[0].answers} correctAnswer={mockLesson.questions[0].correctAnswer} navigator={navigator} />
+      return <Lesson questions={mockLesson.questions} navigator={navigator} />
+    } else if (name === 'LessonComplete') {
+      return <LessonComplete navigator={navigator} />
     }
   }
 
@@ -41,7 +44,7 @@ class scripty extends Component {
       <Navigator
       style={{ backgroundColor: 'white', }}
       navigationBar={<Header />}
-      initialRoute={{ name:'Lesson' }}
+      initialRoute={{ name:'Login' }}
       renderScene={this.renderScene}
       />
     )
@@ -57,6 +60,11 @@ const mockLesson = {
       prompt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nunc augue, mollis in nisi eget, pulvinar interdum velit. Nulla lectus nunc, eleifend sed sapien at, fermentum elementum eros. Mauris sed.',
       answers: ['console.log', 'print', 'display'],
       correctAnswer: 'console.log'
+    },
+    {
+      prompt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nunc augue, mollis in nisi eget, pulvinar interdum velit. Nulla lectus nunc, eleifend sed sapien at, fermentum elementum eros. Mauris sed.',
+      answers: ['array', 'object', 'graph'],
+      correctAnswer: 'object'
     }
   ]
 }

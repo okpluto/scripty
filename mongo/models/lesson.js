@@ -7,8 +7,9 @@ var lessonSchema = mongoose.Schema({
   description: String,
 });
 
-var Lessons = mongoose.model('Lessons', lessonSchema);
+var Lesson = mongoose.model('Lesson', lessonSchema);
 
+<<<<<<< HEAD:mongo/models/lessons.js
 var lesson1 = new Lessons({
   title: "Variable",
   description: "In this lesson, you will be learning about variables"
@@ -23,3 +24,6 @@ lesson1.save(function(err, data) {
 });
 
 module.exports = Lessons;
+=======
+module.exports = Lesson;
+>>>>>>> 55c45c77974f59f4cc30abe48efb3ae3e9fc437b:mongo/models/lesson.js

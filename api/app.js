@@ -3,18 +3,12 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var chalk = require('chalk');
-//var db = require("../mongo/config");
+var db = require("../mongo/config");
 app.use(bodyParser.json());
 
 var log = require('./helpers/log');
 
-//var data = mongoose.createConnection('mongodb://localhost/scripty');
-mongoose.connect("mongodb://localhost/lessons");
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-
-});
+var data = mongoose.createConnection('mongodb://localhost/scripty');
 
 
 var Lessons = require("../mongo/models/lessons");
@@ -27,9 +21,9 @@ app.use(function(req, res, next) {
   next();
 });
 
-// app.use((req, res, next) => {
-//   log(`Request recieved from ${req.url} with method ${req.method}.`);
-// });
+app.use((req, res, next) => {
+  log(`Request recieved from ${req.url} with method ${req.method}.`);
+});
 
 
 
