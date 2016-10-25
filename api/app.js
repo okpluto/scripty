@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var chalk = require('chalk');
+var db = require("config");
 
 var log = require('./helpers/log');
 

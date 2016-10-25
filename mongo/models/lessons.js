@@ -1,4 +1,3 @@
-var db = require('config');
 var mongoose = require('mongoose');
 
 var ObjectId = mongoose.Schema.Types.ObjectId;
