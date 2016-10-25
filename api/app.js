@@ -1,20 +1,51 @@
+var mongoose = require("mongoose");
 var express = require('express');
+var app = express();
 var bodyParser = require('body-parser');
 var chalk = require('chalk');
+var db = require("../mongo/config");
+app.use(bodyParser.json());
 
 var log = require('./helpers/log');
 
-var app = express();
+var data = mongoose.createConnection('mongodb://localhost/scripty');
+
+
+var Lessons = require("../mongo/models/lessons");
+
+
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,UPDATE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
 
 app.use((req, res, next) => {
   log(`Request recieved from ${req.url} with method ${req.method}.`);
 });
 
-app.use(bodyParser.json());
 
-app.get('/', (req, res) => {});
+
+app.get('/api/lessons', function(req, res) {
+  Lessons.find({}, function(err, lessons) {
+    res.send(lessons.reduce(function(lessonMap, item) {
+        lessonMap[item.id] = item;
+        return lessonMap;
+      }, {})
+    );
+  });
+});
+
+
+app.get('/api/lessons/:id', function(req, res) {
+  var id = req.params.id;
+  Lessons.findById(id, function(err, lesson) {
+    if(err) console.log(err);
+    res.json(lesson);
+  });
+});
+
 
 log(`Listening on port ${process.env.PORT || 3011}`)
 app.listen(process.env.PORT || 3011);
-
-log({color: 'red'}, 'Something went wrong!');
