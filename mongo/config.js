@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-mongoose.connect('mongod://localhost/scripty');
+mongoose.connect('mongodb://localhost/scripty');
 
 var connection = mongoose.connection;
 
