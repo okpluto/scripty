@@ -1,16 +1,23 @@
 var mongoose = require("mongoose");
 var express = require('express');
+var app = express();
 var bodyParser = require('body-parser');
 var chalk = require('chalk');
-var db = require("../mongo/config");
+//var db = require("../mongo/config");
+app.use(bodyParser.json());
 
 var log = require('./helpers/log');
 
-mongoose.connect('mongodb://localhost/test');
+//var data = mongoose.createConnection('mongodb://localhost/scripty');
+mongoose.connect("mongodb://localhost/lessons");
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+
+});
+
 
 var Lessons = require("../mongo/models/lessons");
-
-var app = express();
 
 
 app.use(function(req, res, next) {
@@ -20,11 +27,10 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use((req, res, next) => {
-  log(`Request recieved from ${req.url} with method ${req.method}.`);
-});
+// app.use((req, res, next) => {
+//   log(`Request recieved from ${req.url} with method ${req.method}.`);
+// });
 
-app.use(bodyParser.json());
 
 
 app.get('/api/lessons', function(req, res) {

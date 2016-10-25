@@ -14,4 +14,12 @@ var lesson1 = new Lessons({
   description: "In this lesson, you will be learning about variables"
 });
 
+lesson1.save(function(err, data) {
+  if(err) {
+    console.log(err);
+  } else {
+    console.log(data);
+  }
+});
+
 module.exports = Lessons;
