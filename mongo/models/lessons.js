@@ -9,4 +9,9 @@ var lessonSchema = mongoose.Schema({
 
 var Lessons = mongoose.model('Lessons', lessonSchema);
 
+var lesson1 = new Lessons({
+  title: "Variable",
+  description: "In this lesson, you will be learning about variables"
+});
+
 module.exports = Lessons;
