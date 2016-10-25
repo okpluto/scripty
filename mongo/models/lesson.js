@@ -1,4 +1,3 @@
-var db = require('config');
 var mongoose = require('mongoose');
 
 var ObjectId = mongoose.Schema.Types.ObjectId;
@@ -8,6 +7,6 @@ var lessonSchema = mongoose.Schema({
   description: String,
 });
 
-var Lessons = mongoose.model('Lessons', lessonSchema);
+var Lesson = mongoose.model('Lesson', lessonSchema);
 
-module.exports = Lessons;
+module.exports = Lesson;
