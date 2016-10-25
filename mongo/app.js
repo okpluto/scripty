@@ -2,7 +2,7 @@ var express = require("express");
 var app = express();
 var mongoose = require("mongoose");
 //var bodyParser = require("bodyParser");
-mongoose.connect("mongodb://localhost/test");
+mongoose.connect("mongodb://localhost/problems");
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
@@ -18,12 +18,20 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get('/api/test', function(req, res) {
-  Problems.find(function(err, problems) {
-    if(err) console.log("Error: ", err);
-    res.json(problems);
+//Can't seem to retrieve data from the database
+app.get('/problems', function(req, res) {
+  Problems.find({}, function(err, problems) {
+    res.send(problems.reduce(function(problemMap, item) {
+      problemMap[item.id] = item;
+      return problemMap;
+    }, {})
+    );
+    //res.json(problems);
   });
 });
+
+
+
 
 
 // app.post("/config", function(req, res) {
