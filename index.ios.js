@@ -41,7 +41,7 @@ class scripty extends Component {
       <Navigator
       style={{ backgroundColor: 'white', }}
       navigationBar={<Header />}
-      initialRoute={{ name:'Lesson' }}
+      initialRoute={{ name:'Login' }}
       renderScene={this.renderScene}
       />
     )

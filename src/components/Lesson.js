@@ -31,10 +31,6 @@ class Lesson extends Component {
         <QuestionPrompt text={this.props.questionText} />
         { this.props.possibleAnswers.map(answer => {
           let isCorrectAnswer;
-          
-          if (this.state.clicked) {
-            isCorrectAnswer = answer === this.props.correctAnswer;
-          }
     
           return <AnswerButton possibleAnswer={answer} key={answer} 
           handleAnswerButtonClick={this.handleAnswerButtonClick.bind(this)} 
