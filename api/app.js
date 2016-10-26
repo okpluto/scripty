@@ -5,9 +5,12 @@ var bodyParser = require('body-parser');
 var log = require('./helpers/log');
 
 var mongoose = require('mongoose');
+var objid = mongoose.Types.ObjectId;
 
 var db = require('../mongo/config');
-var Lessons = require('../mongo/models/lesson');
+var Lesson = require('../mongo/models/lesson');
+var Reading = require('../mongo/models/reading');
+var Problem = require('../mongo/models/problem');
 
 app.use(bodyParser.json());
 
@@ -22,10 +25,11 @@ app.use(function(req, res, next) {
 // Log out requests for debug
 app.use(function(req, res, next) {
   log(`Request recieved from ${req.url} with method ${req.method}.`);
+  next();
 });
 
 app.get('/api/lessons', function(req, res) {
-  Lessons.find({}, function(err, lessons) {
+  Lesson.find({}, function(err, lessons) {
     if (err) {
       log({color: 'red'}, err);
       return;
@@ -36,12 +40,29 @@ app.get('/api/lessons', function(req, res) {
 
 app.get('/api/lessons/:id', function(req, res) {
   var id = req.params.id;
-  Lessons.findById(id, function(err, lesson) {
-    if (err) {
-      log({color: 'red'}, err);
-      return;
-    }
-    res.status(200).json(lesson);
+  var result = {};
+
+  // TODO: This oughta be refactored to a promise-oriented chain.
+  Lesson.findById(id, function(err, lessonInfo) {
+    result.lessonInfo = lessonInfo;
+    result.lessonContent = [];
+
+    Problem.find({lessonId: objid(id)}, function(err, problems) {
+      if (err || !problems) {
+        log({color: 'red'}, 'Error retrieving problems.');
+        return;
+      }
+      result.lessonContent.push(...problems);
+
+      Reading.find({lessonId: objid(id)}, function(err, readings) {
+        if (err || !readings) {
+          log({color: 'red'}, 'Error retrieving readings.');
+          return;
+        }
+        result.lessonContent.push(...readings);
+        res.status(200).json(result);
+      });
+    });
   });
 });
 
