@@ -1,19 +1,20 @@
-var mongoose = require("mongoose");
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var chalk = require('chalk');
-var db = require("../mongo/config");
-app.use(bodyParser.json());
 
 var log = require('./helpers/log');
 
-var data = mongoose.createConnection('mongodb://localhost/scripty');
+var mongoose = require('mongoose');
+var objid = mongoose.Types.ObjectId;
 
+var db = require('../mongo/config');
+var Lesson = require('../mongo/models/lesson');
+var Reading = require('../mongo/models/reading');
+var Problem = require('../mongo/models/problem');
 
-var Lessons = require("../mongo/models/lessons");
+app.use(bodyParser.json());
 
-
+// Apply headers
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,UPDATE');
@@ -21,31 +22,50 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use((req, res, next) => {
+// Log out requests for debug
+app.use(function(req, res, next) {
   log(`Request recieved from ${req.url} with method ${req.method}.`);
+  next();
 });
-
-
 
 app.get('/api/lessons', function(req, res) {
-  Lessons.find({}, function(err, lessons) {
-    res.send(lessons.reduce(function(lessonMap, item) {
-        lessonMap[item.id] = item;
-        return lessonMap;
-      }, {})
-    );
+  Lesson.find({}, function(err, lessons) {
+    if (err) {
+      log({color: 'red'}, err);
+      return;
+    }
+    res.status(200).json(lessons);
   });
 });
-
 
 app.get('/api/lessons/:id', function(req, res) {
   var id = req.params.id;
-  Lessons.findById(id, function(err, lesson) {
-    if(err) console.log(err);
-    res.json(lesson);
+  var result = {};
+
+  // TODO: This oughta be refactored to a promise-oriented chain.
+  Lesson.findById(id, function(err, lessonInfo) {
+    result.lessonInfo = lessonInfo;
+    result.lessonContent = [];
+
+    Problem.find({lessonId: objid(id)}, function(err, problems) {
+      if (err || !problems) {
+        log({color: 'red'}, 'Error retrieving problems.');
+        return;
+      }
+      result.lessonContent.push(...problems);
+
+      Reading.find({lessonId: objid(id)}, function(err, readings) {
+        if (err || !readings) {
+          log({color: 'red'}, 'Error retrieving readings.');
+          return;
+        }
+        result.lessonContent.push(...readings);
+        res.status(200).json(result);
+      });
+    });
   });
 });
 
-
-log(`Listening on port ${process.env.PORT || 3011}`)
-app.listen(process.env.PORT || 3011);
+app.listen(process.env.PORT || 3011, function() {
+  log(`Listening on port ${process.env.PORT || 3011}`);
+});

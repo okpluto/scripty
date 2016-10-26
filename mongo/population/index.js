@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 
+var log = require('../../api/helpers/log');
+
 var Lesson = require('../models/lesson');
 var Reading = require('../models/reading');
 var Problem = require('../models/problem');
@@ -28,27 +30,38 @@ var testlesson = {
   ]
 };
 
-
 var createdLesson = new Lesson({
   title: testlesson.title,
   description: testlesson.description,
 })
 .save(function(err, lesson) {
+  if (err) {
+    log({color: 'red'}, 'Error saving test lesson.', err);
+  }
+
   new Reading({
     order: 0,
     text: testlesson.contents[0].text,
-    lessonId: lesson._id
+    lessonId: mongoose.Types.ObjectId(lesson._id)
   })
-  .save(console.error.bind('Error saving test reading.'));
+  .save(function(err) {
+    if (err) {
+      log({color: 'red'}, 'Error saving test reading.', err);
+    }
+  });
 
   new Problem({
     order: 1,
     text: testlesson.contents[1].text,
     choices: testlesson.contents[1].choices,
     answer: testlesson.contents[1].answer,
-    lessonId: lesson._id
+    lessonId: mongoose.Types.ObjectId(lesson._id)
   })
-  .save(console.error.bind('Error saving test reading.'));
+  .save(function(err) {
+    if (err) {
+      log({color: 'red'}, 'Error saving test problem.', err);
+    }
+  });
 });
 
 module.exports = createdLesson;
