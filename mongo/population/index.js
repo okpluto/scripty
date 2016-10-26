@@ -42,7 +42,7 @@ var createdLesson = new Lesson({
   new Reading({
     order: 0,
     text: testlesson.contents[0].text,
-    lessonId: lesson._id
+    lessonId: mongoose.Types.ObjectId(lesson._id)
   })
   .save(function(err) {
     if (err) {
@@ -55,7 +55,7 @@ var createdLesson = new Lesson({
     text: testlesson.contents[1].text,
     choices: testlesson.contents[1].choices,
     answer: testlesson.contents[1].answer,
-    lessonId: lesson._id
+    lessonId: mongoose.Types.ObjectId(lesson._id)
   })
   .save(function(err) {
     if (err) {
