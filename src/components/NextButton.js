@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Text, View, Dimensions, TouchableHighlight } from 'react-native';
 
-const NextButton = () => {
+const NextButton = ( { handleNextButtonClick } ) => {
 
   const { viewStyle, cardStyle, textStyle } = styles;
 
   return (
     <View style={viewStyle} >
-      <TouchableHighlight style={{...cardStyle}} underlayColor={darkerBlue} >
+      <TouchableHighlight onPress={handleNextButtonClick} style={{...cardStyle}} underlayColor={darkerBlue} >
         <Text style={textStyle}>Next Question</Text>
       </TouchableHighlight>
     </View>

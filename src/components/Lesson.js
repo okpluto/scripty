@@ -10,13 +10,18 @@ class Lesson extends Component {
     super(props);
 
     this.state = {
-      clicked: false
+      clicked: false,
+      currentQuestion: 0
     }
+  }
+
+  navigate (routeName) {
+    this.props.navigator.push({name:routeName});
   }
 
   displayNextButton() {
     if (this.state.clicked) {
-      return <NextButton />
+      return <NextButton handleNextButtonClick={this.handleNextButtonClick.bind(this)}/>
     }
   }
 
@@ -24,16 +29,35 @@ class Lesson extends Component {
     this.setState({ clicked: true })
   }
 
+  handleNextButtonClick() {
+    let questions = this.props.questions;
+
+    if (this.state.currentQuestion >= questions.length-1) {
+      this.navigate("LessonComplete");
+    } else {
+      this.setState({currentQuestion: this.state.currentQuestion+1,
+        clicked: false})
+    }
+  }
+
   render() {
     const {viewStyle} = styles;
+
+    let question = this.props.questions[this.state.currentQuestion]
+
+    console.log('question', question)
     return (
       <View style={viewStyle}>
-        <QuestionPrompt text={this.props.questionText} />
-        { this.props.possibleAnswers.map(answer => {
+        <QuestionPrompt text={question.prompt} />
+        { question.answers.map(answer => {
           let isCorrectAnswer;
-    
-          return <AnswerButton possibleAnswer={answer} key={answer} 
-          handleAnswerButtonClick={this.handleAnswerButtonClick.bind(this)} 
+
+          if (this.state.clicked) {
+            isCorrectAnswer = answer === question.correctAnswer;
+          }
+
+          return <AnswerButton possibleAnswer={answer} key={answer}
+          handleAnswerButtonClick={this.handleAnswerButtonClick.bind(this)}
           isCorrectAnswer={isCorrectAnswer} />
         })}
         { this.displayNextButton() }
