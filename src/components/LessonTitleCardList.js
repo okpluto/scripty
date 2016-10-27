@@ -8,13 +8,14 @@ class LessonTitleCardList extends Component {
     super(props);
 
     this.state = {
-      lessonsInfo: []
+      lessonDetails: []
     }
-    // Get all of the lessons
-    this.getLessonsInfo()
+    // Get all of the lesson detail objects on component load
+    this.getLessonDetails()
   }
 
-  getLessonsInfo() {
+  // Get all of the lesson titles & ids
+  getLessonDetails() {
     const url = 'http://localhost:3011/api/lessons'
     fetch(url)
     .then(data => {
@@ -22,7 +23,7 @@ class LessonTitleCardList extends Component {
     })
     .then(data => {
       console.log('DATA => ', data)
-      this.setState({'lessonsInfo': data})
+      this.setState({'lessonDetails': data})
     })
   }
 
@@ -31,8 +32,8 @@ class LessonTitleCardList extends Component {
     return (
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={viewStyle} >
         { 
-          this.state.lessonsInfo.map(lesson => {
-          return <LessonTitleCard lessonTitle={lesson.title} navigator={ this.props.navigator } key={lesson.title} />
+          this.state.lessonDetails.map(lesson => {
+          return <LessonTitleCard lessonTitle={lesson.title} navigator={ this.props.navigator } key={lesson._id} />
           })
         }
       </ScrollView>

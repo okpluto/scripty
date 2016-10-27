@@ -2,23 +2,27 @@ import React, { Component } from 'react';
 import { Text, View, Dimensions, TouchableHighlight } from 'react-native';
 
 
-const AnswerButton = ({ possibleAnswer, handleAnswerButtonClick, isCorrectAnswer }) => {
+const AnswerButton = ({ possibleAnswer, handleAnswerButtonClick, isCorrectAnswer, isPressedAnswer, key }) => {
 
-  const { viewStyle, baseCardStyle, correctCardStyle, baseTextStyle, correctTextStyle } = styles;
+  const { viewStyle, baseCardStyle, correctCardStyle, incorrectCardStyle, baseTextStyle, selectedTextStyle } = styles;
 
   let cardStyle;
   let textStyle;
 
   if (!!isCorrectAnswer) {
     cardStyle = {...baseCardStyle, ...correctCardStyle};
-    textStyle = {...baseTextStyle, ...correctTextStyle};
+    textStyle = {...baseTextStyle, ...selectedTextStyle};
+  } else if (isPressedAnswer) {
+    console.log('ANSWER YOU CLICKED IS FALSE')
+    cardStyle = {...baseCardStyle, ...incorrectCardStyle};
+    textStyle = {...baseTextStyle, ...selectedTextStyle};
   } else {
     cardStyle = baseCardStyle;
     textStyle = baseTextStyle;
   }
 
   return (
-    <TouchableHighlight onPress={handleAnswerButtonClick} style={cardStyle} underlayColor={grey} >
+    <TouchableHighlight onPress={handleAnswerButtonClick.bind(this, possibleAnswer)} style={cardStyle} underlayColor={grey} >
       <Text style={textStyle}>{possibleAnswer}</Text>
     </TouchableHighlight>
   )
@@ -32,7 +36,7 @@ const darkGrey = '#7f8c8d';
 const notBlack = '#1c1c1c';
 const mint = '#67D5B5';
 const green = '#60CF73';
-
+const incorrectRed = '#FF5A60';
 
 
 const styles = {
@@ -65,11 +69,15 @@ const styles = {
     color: notBlack,
     fontSize: 15,
   },
-  correctTextStyle: {
+  selectedTextStyle: {
     color: 'white',
     fontSize: 15,
     fontWeight: 'bold',
   },
+  incorrectCardStyle: {
+    backgroundColor: incorrectRed,
+    borderWidth: 0,
+  }
 }
 
 
