@@ -32,7 +32,10 @@ class LessonTitleCardList extends Component {
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={viewStyle} >
         { 
           this.state.lessonDetails.map(lesson => {
-          return <LessonTitleCard lessonTitle={lesson.title} navigator={ this.props.navigator } key={lesson._id} />
+          return <LessonTitleCard lessonTitle={lesson.title} 
+            lessonId={lesson._id}
+            navigator={ this.props.navigator } 
+            key={lesson._id} />
           })
         }
       </ScrollView>

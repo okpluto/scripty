@@ -9,6 +9,8 @@ class Lesson extends Component {
   constructor(props) {
     super(props);
 
+    console.log('PROPS => ', props.id)
+
     this.state = {
       clicked: false,
       currentQuestion: 0,
@@ -20,7 +22,7 @@ class Lesson extends Component {
 
   // Fetch the questions from the API
   getQuestions() {
-    let url = 'http://127.0.0.1:3011/api/lessons/58115c426eb84b305e25fc07';
+    let url = `http://127.0.0.1:3011/api/lessons/${this.props.id}`;
 
     fetch(url)
     .then(data => {
