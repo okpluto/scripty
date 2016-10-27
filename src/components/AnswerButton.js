@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, Dimensions, TouchableHighlight } from 'react-native';
 
 
-const AnswerButton = ({ possibleAnswer, handleAnswerButtonClick, isCorrectAnswer, isPressedAnswer, key }) => {
+const AnswerButton = ({ possibleAnswer, handleAnswerButtonClick, isCorrectAnswer, isPressedAnswer }) => {
 
   const { viewStyle, baseCardStyle, correctCardStyle, incorrectCardStyle, baseTextStyle, selectedTextStyle } = styles;
 
@@ -13,7 +13,6 @@ const AnswerButton = ({ possibleAnswer, handleAnswerButtonClick, isCorrectAnswer
     cardStyle = {...baseCardStyle, ...correctCardStyle};
     textStyle = {...baseTextStyle, ...selectedTextStyle};
   } else if (isPressedAnswer) {
-    console.log('ANSWER YOU CLICKED IS FALSE')
     cardStyle = {...baseCardStyle, ...incorrectCardStyle};
     textStyle = {...baseTextStyle, ...selectedTextStyle};
   } else {
@@ -36,7 +35,7 @@ const darkGrey = '#7f8c8d';
 const notBlack = '#1c1c1c';
 const mint = '#67D5B5';
 const green = '#60CF73';
-const incorrectRed = '#FF5A60';
+const incorrectRed = '#FA6467';
 
 
 const styles = {

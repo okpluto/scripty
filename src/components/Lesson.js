@@ -28,7 +28,6 @@ class Lesson extends Component {
     })
     .then(data => {
       let questions = data.lessonContent.sort((a, b) => a.order - b.order)
-      console.log('QUESTION DATA => ', questions)
       this.setState({'questions': questions})
     })
   }
@@ -40,7 +39,6 @@ class Lesson extends Component {
 
   // When any choice is clicked, change the state of this parent component to reflect that action
   handleAnswerButtonClick(buttonText) {
-    console.log('BUTTON TEXT => ', buttonText)
     this.setState({ clicked: true });
     this.setState({ pressedButton: buttonText });
   }
@@ -72,7 +70,6 @@ class Lesson extends Component {
 
   displayQuestionChoices() { 
     let question = this.state.questions[this.state.currentQuestion];
-    console.log('QUESTION => ', question)
 
     if (question && question.choices)
     return question.choices.map(choice => {

@@ -22,7 +22,6 @@ class LessonTitleCardList extends Component {
       return data.json()
     })
     .then(data => {
-      console.log('DATA => ', data)
       this.setState({'lessonDetails': data})
     })
   }
