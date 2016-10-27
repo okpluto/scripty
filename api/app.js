@@ -4,13 +4,9 @@ var bodyParser = require('body-parser');
 
 var log = require('./helpers/log');
 
-var mongoose = require('mongoose');
-var objid = mongoose.Types.ObjectId;
+var db = require('./data/config');
 
-var db = require('../mongo/config');
-var Lesson = require('../mongo/models/lesson');
-var Reading = require('../mongo/models/reading');
-var Problem = require('../mongo/models/problem');
+var handlers = require('./util/route-handlers');
 
 app.use(bodyParser.json());
 
@@ -24,47 +20,21 @@ app.use(function(req, res, next) {
 
 // Log out requests for debug
 app.use(function(req, res, next) {
-  log(`Request recieved from ${req.url} with method ${req.method}.`);
+  log.info(`Request recieved from ${req.url} with method ${req.method}.`);
   next();
 });
 
-app.get('/api/lessons', function(req, res) {
-  Lesson.find({}, function(err, lessons) {
-    if (err) {
-      log({color: 'red'}, err);
-      return;
-    }
-    res.status(200).json(lessons);
-  });
-});
+app.get('/api/lessons', handlers.getAllLessons);
 
-app.get('/api/lessons/:id', function(req, res) {
-  var id = req.params.id;
-  var result = {};
+app.get('/api/lessons/:id', handlers.getLessonById);
 
-  // TODO: This oughta be refactored to a promise-oriented chain.
-  Lesson.findById(id, function(err, lessonInfo) {
-    result.lessonInfo = lessonInfo;
-    result.lessonContent = [];
+app.post('/api/lessons', handlers.createLesson);
 
-    Problem.find({lessonId: objid(id)}, function(err, problems) {
-      if (err || !problems) {
-        log({color: 'red'}, 'Error retrieving problems.');
-        return;
-      }
-      result.lessonContent.push(...problems);
+app.get('/api/users', handlers.getUsers);
+app.get('/api/users/:id', handlers.getUserById);
+// app.get('/api/users/:name', handlers.getUserByName);
 
-      Reading.find({lessonId: objid(id)}, function(err, readings) {
-        if (err || !readings) {
-          log({color: 'red'}, 'Error retrieving readings.');
-          return;
-        }
-        result.lessonContent.push(...readings);
-        res.status(200).json(result);
-      });
-    });
-  });
-});
+app.post('/api/users', handlers.createUser);
 
 app.listen(process.env.PORT || 3011, function() {
   log(`Listening on port ${process.env.PORT || 3011}`);

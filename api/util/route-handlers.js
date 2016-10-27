@@ -1,9 +1,9 @@
 var mongoose = require('mongoose');
 var objid = mongoose.Types.ObjectId;
 
-var Lesson = require('../../mongo/models/lesson');
-var Reading = require('../../mongo/models/reading');
-var Problem = require('../../mongo/models/problem');
+var Lesson = require('../data/models/lesson');
+var Reading = require('../data/models/reading');
+var Problem = require('../data/models/problem');
 
 var log = require('../helpers/log');
 
@@ -17,7 +17,7 @@ exports.getAllLessons = function(req, res) {
   });
 };
 
-exports.getLessonDeeply = function(req, res) {
+exports.getLessonById = function(req, res) {
   var id = req.params.id;
   var result = {};
 
@@ -39,13 +39,15 @@ exports.getLessonDeeply = function(req, res) {
           return;
         }
         result.lessonContent.push(...readings);
+
+        log.info('Successfully submitted lesson.');
         res.status(200).json(result);
       });
     });
   });
 };
 
-exports.postLessons = function(req, res) {
+exports.createLesson = function(req, res) {
 
 };
 
@@ -53,7 +55,11 @@ exports.getUsers = function() {
 
 };
 
-exports.postUser = function() {
+exports.getUserById = function() {
+
+};
+
+exports.createUser = function() {
 
 };
 
