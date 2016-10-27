@@ -1,13 +1,12 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var ObjectId = mongoose.Schema.Types.ObjectId;
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
-var lessonSchema = mongoose.Schema({
+const lessonSchema = mongoose.Schema({
   title: String,
   description: String,
 });
 
-var Lesson = mongoose.model('Lesson', lessonSchema);
-
+const Lesson = mongoose.model('Lesson', lessonSchema);
 
 module.exports = Lesson;

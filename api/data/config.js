@@ -8,7 +8,7 @@ var connection = mongoose.connection;
 connection.on('error',
   log.error.bind(null, 'Error connecting to MongoDB:'));
 connection.once('open', function() {
-  log.success('Connected to MongoDB.');
+  log.info('Connected to MongoDB.');
 });
 
 module.exports = connection;

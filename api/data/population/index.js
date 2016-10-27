@@ -1,10 +1,10 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var log = require('../../helpers/log');
+const log = require('../../helpers/log');
 
-var Lesson = require('../models/lesson');
-var Reading = require('../models/reading');
-var Problem = require('../models/problem');
+const Lesson = require('../models/lesson');
+const Reading = require('../models/reading');
+const Problem = require('../models/problem');
 
 /*
  *  DATAYPE: Lesson
@@ -13,7 +13,7 @@ var Problem = require('../models/problem');
  *  @description <String> alias lessonDescription
  *  @contents <Array[Content]> alias lessonContents
  */
-var testlesson = {
+const testlesson = {
   title: 'Hello World',
   description: 'Welcome to Javascript!',
   contents: [
@@ -30,7 +30,7 @@ var testlesson = {
   ]
 };
 
-var createdLesson = new Lesson({
+const createdLesson = new Lesson({
   title: testlesson.title,
   description: testlesson.description,
 })
