@@ -4,7 +4,7 @@ const chalk = require('chalk');
 const prelude = () => (
   `${chalk.dim('[')}` +
   `${chalk.yellow(
-    '𝕊 ' + moment(new Date()).format('hh:mm:ss')
+    '𝒮 ' + moment(new Date()).format('hh:mm:ss')
   )}` +
   `${chalk.dim(']')} `
 );
@@ -21,7 +21,8 @@ const Log = function(opts, ...lines) {
 };
 
 Log.error = Log.bind(null, {color: 'red'});
-Log.info = Log.sucess = Log.bind(null, {color: 'green'});
+Log.info = Log.bind(null, {color: 'blue'});
+Log.success = Log.bind(null, {color: 'green'});
 Log.warning = Log.warn = Log.bind(null, {color: 'yellow'});
 
 module.exports = Log;
