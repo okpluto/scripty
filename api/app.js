@@ -36,5 +36,5 @@ app.get('/api/users/:id', handlers.getUserById);
 app.post('/api/users', handlers.createUser);
 
 app.listen(process.env.PORT || 3011, () => {
-  log.info(`Listening on port ${process.env.PORT || 3011}`);
+  log.info(`Listening on port ${process.env.PORT || 3011}.`);
 });
