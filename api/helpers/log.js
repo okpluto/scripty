@@ -9,7 +9,7 @@ const prelude = () => (
   `${chalk.dim(']')} `
 );
 
-module.exports = function(opts, ...lines) {
+const Log = function(opts, ...lines) {
   if (typeof opts !== 'object') { lines = [opts, ...lines]; }
 
   let display = lines
@@ -19,3 +19,9 @@ module.exports = function(opts, ...lines) {
 
   console.log.call(console, display);
 };
+
+Log.error = Log.bind(null, {color: 'red'});
+Log.info = Log.sucess = Log.bind(null, {color: 'green'});
+Log.warning = Log.warn = Log.bind(null, {color: 'yellow'});
+
+module.exports = Log;
