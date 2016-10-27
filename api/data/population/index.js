@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var log = require('../../api/helpers/log');
+var log = require('../../helpers/log');
 
 var Lesson = require('../models/lesson');
 var Reading = require('../models/reading');
@@ -36,7 +36,7 @@ var createdLesson = new Lesson({
 })
 .save(function(err, lesson) {
   if (err) {
-    log({color: 'red'}, 'Error saving test lesson.', err);
+    log.error('Error saving test lesson.', err);
   }
 
   new Reading({
@@ -46,7 +46,7 @@ var createdLesson = new Lesson({
   })
   .save(function(err) {
     if (err) {
-      log({color: 'red'}, 'Error saving test reading.', err);
+      log.error('Error saving test reading.', err);
     }
   });
 
@@ -59,7 +59,7 @@ var createdLesson = new Lesson({
   })
   .save(function(err) {
     if (err) {
-      log({color: 'red'}, 'Error saving test problem.', err);
+      log.error('Error saving test problem.', err);
     }
   });
 });
