@@ -9,12 +9,13 @@ const prelude = () => (
   `${chalk.dim(']')} `
 );
 
+const json = j => typeof j === 'object' ? JSON.stringify(j) : j;
+
 const Log = function(opts, ...lines) {
   if (typeof opts !== 'object') { lines = [opts, ...lines]; }
 
   let display = lines
-    .map(i =>
-      prelude() + chalk[opts.color || 'white'](i))
+    .map(i => prelude() + chalk[opts.color || 'white']( json(i) ))
     .join('\n');
 
   console.log.call(console, display);
