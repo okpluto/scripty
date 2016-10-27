@@ -1,14 +1,14 @@
-var mongoose = require('mongoose');
-var objid = mongoose.Types.ObjectId;
+const mongoose = require('mongoose');
+const ObjId = mongoose.Types.ObjectId;
 
-var Lesson = require('../data/models/lesson');
-var Reading = require('../data/models/reading');
-var Problem = require('../data/models/problem');
+const Lesson = require('../data/models/lesson');
+const Reading = require('../data/models/reading');
+const Problem = require('../data/models/problem');
 
-var log = require('../helpers/log');
+const log = require('../helpers/log');
 
 exports.getAllLessons = function(req, res) {
-  Lesson.find({}, function(err, lessons) {
+  Lesson.find({}, (err, lessons) => {
     if (err) {
       log.error(err);
       return;
@@ -18,22 +18,22 @@ exports.getAllLessons = function(req, res) {
 };
 
 exports.getLessonById = function(req, res) {
-  var id = req.params.id;
-  var result = {};
+  const id = req.params.id;
+  let result = {};
 
   // TODO: This oughta be refactored to a promise-oriented chain.
-  Lesson.findById(id, function(err, lessonInfo) {
+  Lesson.findById(id, (err, lessonInfo) => {
     result.lessonInfo = lessonInfo;
     result.lessonContent = [];
 
-    Problem.find({lessonId: objid(id)}, function(err, problems) {
+    Problem.find({lessonId: ObjId(id)}, (err, problems) => {
       if (err || !problems) {
         log.error('Error retrieving problems.');
         return;
       }
       result.lessonContent.push(...problems);
 
-      Reading.find({lessonId: objid(id)}, function(err, readings) {
+      Reading.find({lessonId: ObjId(id)}, (err, readings) => {
         if (err || !readings) {
           log.error('Error retrieving readings.');
           return;
