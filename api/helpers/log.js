@@ -9,7 +9,9 @@ const prelude = () => (
   `${chalk.dim(']')} `
 );
 
-const json = j => typeof j === 'object' ? JSON.stringify(j) : j;
+const json = j => typeof j === 'object'
+  ? JSON.stringify(j)
+  : j;
 
 const Log = function(opts, ...lines) {
   if (typeof opts !== 'object') { lines = [opts, ...lines]; }
