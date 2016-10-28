@@ -34,7 +34,7 @@ const createdLesson = new Lesson({
   title: testlesson.title,
   description: testlesson.description,
 })
-.save(function(err, lesson) {
+.save((err, lesson) => {
   if (err) {
     log.error('Error saving test lesson.', err);
   }
@@ -44,7 +44,7 @@ const createdLesson = new Lesson({
     text: testlesson.contents[0].text,
     lessonId: mongoose.Types.ObjectId(lesson._id)
   })
-  .save(function(err) {
+  .save(err => {
     if (err) {
       log.error('Error saving test reading.', err);
     }
@@ -57,7 +57,7 @@ const createdLesson = new Lesson({
     answer: testlesson.contents[1].answer,
     lessonId: mongoose.Types.ObjectId(lesson._id)
   })
-  .save(function(err) {
+  .save(err => {
     if (err) {
       log.error('Error saving test problem.', err);
     }
