@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, Dimensions, TouchableHighlight } from 'react-native';
 
-const LessonComplete = ({ navigator }) => {
+const LessonComplete = ({ navigator, numberCorrect, numberIncorrect }) => {
 
   const { viewStyle, cardStyle, textStyle, bigTextStyle } = styles;
 

@@ -21,15 +21,15 @@ import LessonComplete from './src/components/LessonComplete';
 class scripty extends Component {
 
   renderScene(route, navigator) {
-    const { name } = route;
+    const { name, passProps } = route;
     if (name === 'Home') {
       return <LessonTitleCardList navigator={navigator} />
     } else if (name === 'Login') {
       return <Login navigator={navigator} />
     } else if (name === 'Lesson') {
-      return <Lesson navigator={navigator} {...route.passProps} />
+      return <Lesson navigator={navigator} {...passProps} />
     } else if (name === 'LessonComplete') {
-      return <LessonComplete navigator={navigator} />
+      return <LessonComplete navigator={navigator} {...passProps} />
     }
   }
 

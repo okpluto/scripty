@@ -37,7 +37,13 @@ class Lesson extends Component {
 
   // Push to the navigator to navigate between views
   navigate (routeName) {
-    this.props.navigator.push({name:routeName});
+    this.props.navigator.push({
+      name:routeName,
+      passProps: {
+        numberCorrect: this.state.numberCorrect,
+        numberIncorrect: this.state.numberIncorrect
+      }
+    });
   }
 
   // When any choice is clicked, change the state of this parent component to reflect that action
@@ -45,14 +51,17 @@ class Lesson extends Component {
     this.setState({ clicked: true });
     this.setState({ pressedButton: buttonText });
 
+    // Also keeping track of correct and incorrect answers - NOT WORKING YET
+    // State looks like it changes in here, but is not reflected in render or navigate
     let question = this.state.questions[this.state.currentQuestion];
 
-    console.log('HELLOOOOOOOOO', question.answer);
     if (buttonText === question.answer) {
-      this.setState({'numberCorrect': this.state.numberCorrect++})
+      this.setState({ numberCorrect: this.state.numberCorrect++})
     } else {
-      this.setState({'numberIncorrect': this.state.numberIncorrect++})
+      this.setState({ numberIncorrect: this.state.numberIncorrect++})
     }
+    console.log('CORRECT INSIDE => ', this.state.numberCorrect);
+    console.log('INCORRECT INSIDE => ', this.state.numberIncorrect);
   }
 
   // Move the pointer to the next question
@@ -79,7 +88,6 @@ class Lesson extends Component {
   }
 
   // If the questions have loaded, display the question
-
   displayQuestionChoices() { 
     let question = this.state.questions[this.state.currentQuestion];
 
@@ -95,7 +103,7 @@ class Lesson extends Component {
         isCorrectAnswer = choice === question.answer;
         isPressedAnswer = choice === this.state.pressedButton;
       }
-
+      
       return <AnswerButton possibleAnswer={choice} key={choice}
       handleAnswerButtonClick={this.handleAnswerButtonClick.bind(this)}
       isCorrectAnswer={isCorrectAnswer} isPressedAnswer={isPressedAnswer} />
@@ -107,7 +115,7 @@ class Lesson extends Component {
     let question = this.state.questions[this.state.currentQuestion];
 
     if (this.state.clicked || !question || !question.choices) {
-      return <NextButton handleNextButtonClick={this.handleNextButtonClick.bind(this)}/>
+      return <NextButton handleNextButtonClick={() => this.handleNextButtonClick.call(this)} />
     }
   }
 
@@ -116,9 +124,10 @@ class Lesson extends Component {
     return this.state.currentQuestion / this.state.questions.length;
   }
 
-
   render() {
     const {viewStyle} = styles;
+    console.log('CORRECT RENDER => ', this.state.numberCorrect);
+    console.log('INCORRECT RENDER => ', this.state.numberIncorrect);
 
     return (
       <View style={viewStyle}>
