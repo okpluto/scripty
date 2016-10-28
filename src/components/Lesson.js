@@ -10,14 +10,13 @@ import ProgressBar from './ProgressBar';
 class Lesson extends Component {
   constructor(props) {
     super(props);
-
-    console.log('PROPS => ', props.id)
-
     this.state = {
       clicked: false,
       currentQuestion: 0,
       questions: [],
-      pressedButton: ''
+      pressedButton: '',
+      numberCorrect: 0,
+      numberIncorrect: 0,
     }
     this.getQuestions();
   }
@@ -45,6 +44,15 @@ class Lesson extends Component {
   handleAnswerButtonClick(buttonText) {
     this.setState({ clicked: true });
     this.setState({ pressedButton: buttonText });
+
+    let question = this.state.questions[this.state.currentQuestion];
+
+    console.log('HELLOOOOOOOOO', question.answer);
+    if (buttonText === question.answer) {
+      this.setState({'numberCorrect': this.state.numberCorrect++})
+    } else {
+      this.setState({'numberIncorrect': this.state.numberIncorrect++})
+    }
   }
 
   // Move the pointer to the next question
@@ -97,6 +105,7 @@ class Lesson extends Component {
   // Only display next button when a choice has been pressed
   displayNextButton() {
     let question = this.state.questions[this.state.currentQuestion];
+
     if (this.state.clicked || !question || !question.choices) {
       return <NextButton handleNextButtonClick={this.handleNextButtonClick.bind(this)}/>
     }
@@ -106,6 +115,7 @@ class Lesson extends Component {
   calculateProgress() {
     return this.state.currentQuestion / this.state.questions.length;
   }
+
 
   render() {
     const {viewStyle} = styles;
