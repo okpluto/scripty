@@ -6,8 +6,10 @@ const Reading = require('../data/models/reading');
 const Problem = require('../data/models/problem');
 
 const log = require('../helpers/log');
+const send500 = require('../helpers/send500');
+const send404 = require('../helpers/send404');
 
-exports.getAllLessons = function(req, res) {
+exports.getAllLessons = (req, res) => {
   Lesson.find({}, (err, lessons) => {
     if (err) {
       log.error(err);
@@ -17,7 +19,7 @@ exports.getAllLessons = function(req, res) {
   });
 };
 
-exports.getLessonById = function(req, res) {
+exports.getLessonById = (req, res) => {
   const id = req.params.id;
   let result = {};
 
@@ -47,19 +49,59 @@ exports.getLessonById = function(req, res) {
   });
 };
 
-exports.createLesson = function(req, res) {
+// TODO(Mitch): Needs testing.
+exports.createLesson = (req, res) => {
+  const {title, description, content} = req.body;
 
+  // Check intergrity of lesson content
+  if (content.length === 0) {
+    send500(res, 'Lesson submitted without content.');
+    return;
+  }
+
+  new Lesson({title, description})
+    .save((err, lesson) => {
+      content.map((item, index) => {
+        // NOTE: This is a very hacky way to determine if a piece of content
+        // is a probem, rather than a reading. A more robust method of
+        // determining this will become necessary, I'm almost certain.
+        if (item.order === undefined) { item.order = index; }
+
+        if (item.choices) {
+          new Problem(item)
+            .save(err => err ? log.error(err) : null);
+        } else {
+          new Reading(item)
+            .save(err => err ? log.error(err) : null);
+        }
+      });
+    });
+
+  res.status(201).send();
 };
 
-exports.getUsers = function() {
+exports.updateLessonById = (req, res) => {
 
 };
-
-exports.getUserById = function() {
-
+exports.deleteLessonById = (req, res) => {
+  const id = req.params.id;
 };
 
-exports.createUser = function() {
+exports.getUsers = (req, res) => {};
+exports.getUserById = (req, res) => {
+  const id = req.params.id;
+  const {name, email, password} = req.body;
 
+  Lesson.update({id: ObjId(id)}, {name, email, password}, (err) => {
+    if (err) {
+      send500(res, err);
+    } else {
+      res.status(201).send({name, email});
+    }
+  });
 };
+
+exports.createUser = (req, res) => {};
+exports.updateUserById = (req, res) => {};
+exports.deleteUserById = (req, res) => {};
 
