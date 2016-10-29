@@ -30,10 +30,20 @@ Add update, delete for Users/Lesssons.
 app.get('/api/lessons', handlers.getAllLessons);
 app.get('/api/lessons/:id', handlers.getLessonById);
 app.post('/api/lessons', handlers.createLesson);
+app.put('/api/lessons/:id', handlers.updateLessonById);
+app.delete('/api/lessons/:id', handlers.deleteLessonById);
 
 app.get('/api/users', handlers.getUsers);
 app.get('/api/users/:id', handlers.getUserById);
 app.post('/api/users', handlers.createUser);
+
+app.get('/api/content/:type', handlers.getContentByType);
+app.get('/api/content/:id', handlers.getContentById);
+app.post('/api/content', handlers.createContent);
+app.put('/api/content', handlers.updateContentById);
+app.delete('/api/content', handlers.deleteContentById);
+
+
 
 app.listen(process.env.PORT || 3011, () => {
   log.info(`Listening on port ${process.env.PORT || 3011}.`);
