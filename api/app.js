@@ -42,8 +42,8 @@ app.delete('/api/users/:id', userHandlers.deleteUserById);
 app.get('/api/content/:type', contentHandlers.getContentByType);
 app.get('/api/content/:id', contentHandlers.getContentById);
 app.post('/api/content', contentHandlers.createContent);
-app.put('/api/content', contentHandlers.updateContentById);
-app.delete('/api/content', contentHandlers.deleteContentById);
+app.put('/api/content/:id', contentHandlers.updateContentById);
+app.delete('/api/content/:id', contentHandlers.deleteContentById);
 
 app.listen(process.env.PORT || 3011, () => {
   log.info(`Listening on port ${process.env.PORT || 3011}.`);

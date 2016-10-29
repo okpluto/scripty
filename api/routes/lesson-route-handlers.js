@@ -19,21 +19,23 @@ exports.getAllLessons = (req, res) => {
 };
 
 exports.getLessonById = (req, res) => {
-  const id = req.params.id;
-  let result = {};
+  const id = req.params.id.trim();
+  const result = {};
 
-  // TODO: This oughta be refactored to a promise-oriented chain.
   Lesson.findById(id, (err, lessonInfo) => {
     result.lessonInfo = lessonInfo;
     result.lessonContent = [];
 
     Content.find({lessonId: ObjId(id)}, (err, content) => {
-      if (err || !content) {
-        log.error('Error retrieving content.');
-        return;
-      }
+
+      console.log(content);
+
+      // if (err || !content || content.length === 0) {
+      //   send500(res, 'Error retrieving content.', err);
+      //   return;
+      // }
       result.lessonContent.push(...content);
-      log.info('Successfully submitted lesson.');
+      log.info('Successfully retrieved lesson.');
       res.status(200).json(result);
     });
   });

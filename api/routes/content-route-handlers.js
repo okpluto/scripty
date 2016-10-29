@@ -11,20 +11,19 @@ exports.getContent = (req, res) => {};
 
 exports.getContentById = (req, res) => {
   const id = req.params.id;
-  //TODO(Mitch): Fill me in!
 };
 
-exports.getContentByType = (req, res) => {};
+exports.getContentByType = (req, res) => {
+  const type = req.params.type;
+};
 
 exports.createContent = (req, res) => {};
 
 exports.updateContentById = (req, res) => {
   const id = req.params.id;
-  //TODO(Mitch): Fill me in!
 };
 
 exports.deleteContentById = (req, res) => {
   const id = req.params.id;
-  //TODO(Mitch): Fill me in!
 };
 
