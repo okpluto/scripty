@@ -66,37 +66,11 @@ exports.createLesson = (req, res) => {
 };
 
 exports.updateLessonById = (req, res) => {
-
+  const id = req.params.id;
+  //TODO(Mitch): Fill me in!
 };
+
 exports.deleteLessonById = (req, res) => {
   const id = req.params.id;
+  //TODO(Mitch): Fill me in!
 };
-
-exports.getUsers = (req, res) => {};
-exports.getUserById = (req, res) => {
-  const id = req.params.id;
-  const {name, email, password} = req.body;
-
-  Lesson.update({id: ObjId(id)}, {name, email, password}, (err) => {
-    if (err) {
-      send500(res, err);
-    } else {
-      res.status(201).send({name, email});
-    }
-  });
-};
-
-
-
-exports.createUser = (req, res) => {};
-exports.updateUserById = (req, res) => {};
-exports.deleteUserById = (req, res) => {};
-
-exports.getContent = (req, res) => {};
-exports.getContentById = (req, res) => {};
-exports.getContentByType = (req, res) => {};
-
-exports.createContent = (req, res) => {};
-exports.updateContentById = (req, res) => {};
-exports.deleteContentById = (req, res) => {};
-
