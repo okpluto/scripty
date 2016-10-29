@@ -1,9 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const contentHandlers = require('./util/content-route-handlers');
-const lessonHandlers = require('./util/lesson-route-handlers');
-const userHandlers = require('./util/user-route-handlers');
+const contentHandlers = require('./routes/content-route-handlers');
+const lessonHandlers = require('./routes/lesson-route-handlers');
+const userHandlers = require('./routes/user-route-handlers');
 
 const log = require('./helpers/log');
 const db = require('./data/config');
