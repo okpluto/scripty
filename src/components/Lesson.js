@@ -56,9 +56,9 @@ class Lesson extends Component {
     let question = this.state.questions[this.state.currentQuestion];
 
     if (buttonText === question.answer) {
-      this.setState({ numberCorrect: this.state.numberCorrect++})
+      this.setState({ numberCorrect: this.state.numberCorrect + 1})
     } else {
-      this.setState({ numberIncorrect: this.state.numberIncorrect++})
+      this.setState({ numberIncorrect: this.state.numberIncorrect + 1})
     }
     console.log('CORRECT INSIDE => ', this.state.numberCorrect);
     console.log('INCORRECT INSIDE => ', this.state.numberIncorrect);
@@ -128,6 +128,7 @@ class Lesson extends Component {
     const {viewStyle} = styles;
     console.log('CORRECT RENDER => ', this.state.numberCorrect);
     console.log('INCORRECT RENDER => ', this.state.numberIncorrect);
+    console.log('CLICKED? => ', this.state.clicked);
 
     return (
       <View style={viewStyle}>
