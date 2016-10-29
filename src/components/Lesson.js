@@ -60,8 +60,6 @@ class Lesson extends Component {
     } else {
       this.setState({ numberIncorrect: this.state.numberIncorrect + 1})
     }
-    console.log('CORRECT INSIDE => ', this.state.numberCorrect);
-    console.log('INCORRECT INSIDE => ', this.state.numberIncorrect);
   }
 
   // Move the pointer to the next question
@@ -126,10 +124,10 @@ class Lesson extends Component {
 
   render() {
     const {viewStyle} = styles;
-    console.log('CORRECT RENDER => ', this.state.numberCorrect);
-    console.log('INCORRECT RENDER => ', this.state.numberIncorrect);
-    console.log('CLICKED? => ', this.state.clicked);
 
+    // A lot of things in this component are dependent on state
+    // and user actions, so we return them from functions (or not)
+    // that determine whether they should be rendered
     return (
       <View style={viewStyle}>
         <ProgressBar progress={this.calculateProgress()} />

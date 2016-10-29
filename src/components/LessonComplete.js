@@ -64,7 +64,7 @@ const styles = {
   },
   results: {
     fontWeight: 'bold',
-    fontSize: 15,
+    fontSize: 20,
   },
   greenText: {
     color: green,
