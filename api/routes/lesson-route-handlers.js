@@ -18,7 +18,7 @@ exports.getAllLessons = (req, res) => {
   });
 };
 
-exports.getLessonById = (req, res) => {
+exports.getLessonAndContentsById = (req, res) => {
   const id = req.params.id;
   const result = {};
 
