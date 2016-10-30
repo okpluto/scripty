@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 
-const ObjectId = mongoose.Schema.Types.ObjectId;
-
 /* Data type: Content
  *
  * This represents lessons. Boggles the mind, right?
