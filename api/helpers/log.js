@@ -3,7 +3,8 @@ const chalk = require('chalk');
 
 /* Prelude
  *
- * A function that produces the default timestamp for all messages logged with Log.
+ * A function that produces the default timestamp for all messages logged with
+ * Log.
  **/
 const prelude = () => (
   `${chalk.dim('[')}` +
@@ -16,8 +17,11 @@ const prelude = () => (
 
 /* isJson
  *
- * Stringify's provided argument if said argument is an object. Otherwise it returns it
- * verbatim.
+ * Stringify's provided argument if said argument is an object. Otherwise it
+ * returns it verbatim.
+ *
+ * WARNING: This will fail on circular objects, which is relatively common
+ * amoungst node's more complex default objects.
  **/
 const isJson = j => typeof j === 'object'
   ? JSON.stringify(j)
@@ -26,9 +30,9 @@ const isJson = j => typeof j === 'object'
 
 /* Log
  *
- * A wrapper around console.log that produces colored, dated output. Currently supports
- * objects loosely. Might not be a good alternative to console.log for debugging but is
- * very good for providing distinct user-legible output.
+ * A wrapper around console.log that produces colored, dated output. Currently
+ * supports objects loosely. Might not be a good alternative to console.log for
+ * debugging but is very good for providing distinct user-legible output.
  **/
 const Log = function(opts, ...lines) {
   if (typeof opts !== 'object') { lines = [opts, ...lines]; }
@@ -48,12 +52,12 @@ const Log = function(opts, ...lines) {
  * Log.error colors the text red.
  * Log.success colors it green.
  * Log.warning and Log.warn do yellow.
- * The other ones are useless.
+ * The other ones are useless but wonderful.
  **/
 Log.info = Log.bind(null, {color: 'white'});
 Log.error = Log.bind(null, {color: 'red'});
 Log.success = Log.bind(null, {color: 'green'});
 Log.warning = Log.warn = Log.bind(null, {color: 'yellow'});
-Log.amazing = Log.wow = Log.incredible = Log.bind(null, {color: 'magenta'});
+Log.amazing = Log.incredible = Log.wow = Log.bind(null, {color: 'magenta'});
 
 module.exports = Log;
