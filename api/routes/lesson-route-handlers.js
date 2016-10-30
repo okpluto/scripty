@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Lesson = require('../data/models/lesson');
 const Content = require('../data/models/content');
 
-const ObjId = mongoose.Types.ObjectId;
+const ObjectId = mongoose.Types.ObjectId;
 
 const log = require('../helpers/log');
 const send500 = require('../helpers/send500');
@@ -19,23 +19,21 @@ exports.getAllLessons = (req, res) => {
 };
 
 exports.getLessonById = (req, res) => {
-  const id = req.params.id.trim();
+  const id = req.params.id;
   const result = {};
 
   Lesson.findById(id, (err, lessonInfo) => {
     result.lessonInfo = lessonInfo;
     result.lessonContent = [];
 
-    Content.find({lessonId: ObjId(id)}, (err, content) => {
+    Content.find({lessonId: ObjectId(id)}, (err, content) => {
+      if (err) {
+        send500(res, 'Error retrieving content.', err);
+        return;
+      }
 
-      console.log(content);
-
-      // if (err || !content || content.length === 0) {
-      //   send500(res, 'Error retrieving content.', err);
-      //   return;
-      // }
       result.lessonContent.push(...content);
-      log.info('Successfully retrieved lesson.');
+      log.success('Successfully retrieved lesson.');
       res.status(200).json(result);
     });
   });
@@ -54,9 +52,6 @@ exports.createLesson = (req, res) => {
   new Lesson({title, description})
     .save((err, lesson) => {
       content.forEach((item, index) => {
-        // NOTE: This is a very hacky way to determine if a piece of content
-        // is a probem, rather than a reading. A more robust method of
-        // determining this will become necessary, I'm almost certain.
         if (item.order === undefined) { item.order = index; }
 
         new Content(item)
