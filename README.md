@@ -61,6 +61,8 @@ If you're working on a specific component, don't waste time navigating to that v
 
 ## Api routes
 
+These routes currently exist to cover the width and breadth of CRUD actions. As written they may not all be useful nor specified correctly. Feel free to change the heck out of them.
+
 | Complete | URL                | Method | Request Body | Result                                                          |
 |:--------:|:------------------:|:------:|:------------:|:---------------------------------------------------------------:|
 | ✓        | /api/lessons       | GET    | empty        | JSON of all lessons' titles, descriptions and ids.              |
