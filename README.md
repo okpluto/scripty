@@ -1,6 +1,6 @@
 # scripty
 
-## Styleguide
+## Style Guide
 __Components__
 Keep components as concise and modular as possible.
 
