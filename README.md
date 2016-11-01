@@ -25,7 +25,7 @@ node api/app.js
 - [ ] Connecting with friends to see their progress
 - [ ] Allow for different types of lesson content beyond just readings and multiple choice (fill-in-the-blank questions?)
 - [ ] User achievements
-
+ 
 ## Style Guide
 __Components__
 
