@@ -23,7 +23,7 @@ class Lesson extends Component {
 
   // Fetch the questions from the API
   getQuestions() {
-    let url = `http://127.0.0.1:3011/api/lessons/${this.props.id}`;
+    let url = `http://10.226.56.128:3011/api/lessons/${this.props.id}`;
 
     fetch(url)
     .then(data => {
@@ -41,7 +41,7 @@ class Lesson extends Component {
       name:routeName,
       passProps: {
         numberCorrect: this.state.numberCorrect,
-        numberIncorrect: this.state.numberIncorrect, 
+        numberIncorrect: this.state.numberIncorrect,
       }
     });
   }
@@ -81,19 +81,19 @@ class Lesson extends Component {
   displayQuestionText() {
     let question = this.state.questions[this.state.currentQuestion];
     if (question) {
-      return <QuestionPrompt text={question.text} /> 
+      return <QuestionPrompt text={question.text} />
     }
   }
 
   // If the questions have loaded, display the question
-  displayQuestionChoices() { 
+  displayQuestionChoices() {
     let question = this.state.questions[this.state.currentQuestion];
 
     if (question && question.choices)
     return question.choices.map(choice => {
       let isCorrectAnswer;
       let isPressedAnswer;
-  
+
       // Once the user has made a choice, determine if this choice is
       // The correct one, the one they pressed, or neither.
       // For styling purposes inside of the AnswerButton component.
@@ -101,7 +101,7 @@ class Lesson extends Component {
         isCorrectAnswer = choice === question.answer;
         isPressedAnswer = choice === this.state.pressedButton;
       }
-      
+
       return <AnswerButton possibleAnswer={choice} key={choice}
       handleAnswerButtonClick={this.handleAnswerButtonClick.bind(this)}
       isCorrectAnswer={isCorrectAnswer} isPressedAnswer={isPressedAnswer} />

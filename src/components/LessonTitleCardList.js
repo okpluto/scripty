@@ -3,7 +3,7 @@ import { Text, View, Dimensions, ScrollView } from 'react-native';
 import LessonTitleCard from './lessonTitleCard';
 
 class LessonTitleCardList extends Component {
-  
+
   constructor(props) {
     super(props);
 
@@ -16,9 +16,11 @@ class LessonTitleCardList extends Component {
 
   // Get all of the lesson titles & ids
   getLessonDetails() {
-    const url = 'http://localhost:3011/api/lessons'
-    fetch(url)
+    console.log('getting lessons')
+    const url = 'http://10.226.56.128:3011/api/lessons'
+    fetch(url, {method:'GET', body: null})
     .then(data => {
+      console.log('got data')
       return data.json()
     })
     .then(data => {
@@ -30,11 +32,11 @@ class LessonTitleCardList extends Component {
     const { viewStyle } = styles;
     return (
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={viewStyle} >
-        { 
+        {
           this.state.lessonDetails.map(lesson => {
-          return <LessonTitleCard lessonTitle={lesson.title} 
+          return <LessonTitleCard lessonTitle={lesson.title}
             lessonId={lesson._id}
-            navigator={ this.props.navigator } 
+            navigator={ this.props.navigator }
             key={lesson._id} />
           })
         }
