@@ -37,7 +37,9 @@ class Profile extends Component {
           <Icon name="user-circle" size={50} />
            {' ' + this.state.user.name}
           </Text>
-          <Text style={textStyle}>Show Profile Here </Text>
+          <Text style={textStyle}>
+            Current Streak: {this.state.user.streak} Days
+          </Text>
         </View>
       )
     } else {
