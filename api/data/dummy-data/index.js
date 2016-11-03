@@ -24,7 +24,9 @@ const createdLesson = new Lesson({
       name: 'Shawn Drost',
       email: 'shawn@hr.com',
       password: 'shawn',
-      lessons: [{lessonId: lesson._id, score: '4/6'}]
+      lessons: [{lessonId: lesson._id, score: '4/6'}],
+      lastLessonDate: new Date("October 31, 2016"),
+      streak: 3
     })
     .save(err => {
       if (err) {

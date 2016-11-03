@@ -17,7 +17,9 @@ const userSchema = mongoose.Schema({
   name: String,
   email: {type: String, index: {unique: true}},
   password: String,
-  lessons: []
+  lessons: [],
+  lastLessonDate: Date,
+  streak: Number
 });
 
 const User = mongoose.model('User', userSchema);
