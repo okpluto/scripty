@@ -16,11 +16,9 @@ class LessonTitleCardList extends Component {
 
   // Get all of the lesson titles & ids
   getLessonDetails() {
-    console.log('getting lessons')
     const url = 'http://10.226.56.128:3011/api/lessons'
     fetch(url, {method:'GET', body: null})
     .then(data => {
-      console.log('got data')
       return data.json()
     })
     .then(data => {
