@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, Dimensions, ScrollView } from 'react-native';
 import LessonTitleCard from './lessonTitleCard';
+import { localIp } from '../../config/ip.js'
 
 class LessonTitleCardList extends Component {
 
@@ -16,7 +17,7 @@ class LessonTitleCardList extends Component {
 
   // Get all of the lesson titles & ids
   getLessonDetails() {
-    const url = 'http://10.226.56.128:3011/api/lessons'
+    const url = `http://${localIp}:3011/api/lessons`
     fetch(url, {method:'GET', body: null})
     .then(data => {
       return data.json()

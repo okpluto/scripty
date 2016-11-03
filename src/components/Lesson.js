@@ -4,6 +4,7 @@ import QuestionPrompt from './QuestionPrompt';
 import AnswerButton from './AnswerButton';
 import NextButton from './NextButton';
 import ProgressBar from './ProgressBar';
+import { localIp } from '../../config/ip.js'
 
 
 
@@ -23,7 +24,7 @@ class Lesson extends Component {
 
   // Fetch the questions from the API
   getQuestions() {
-    let url = `http://10.226.56.128:3011/api/lessons/${this.props.id}`;
+    let url = `http://${localIp}:3011/api/lessons/${this.props.id}`;
 
     fetch(url)
     .then(data => {
