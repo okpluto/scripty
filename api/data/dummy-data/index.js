@@ -4,7 +4,7 @@ const log = require('../../helpers/log');
 
 const Lesson = require('../models/lesson');
 const Content = require('../models/content');
-
+const User = require('../models/user')
 /* This data is explicitly provided during connection for testing purposes.
  *
  * During further development, this would be a prime place to include further
@@ -19,6 +19,18 @@ const createdLesson = new Lesson({
   if (err) {
     log.error('Dummy Data already exists.');
   } else {
+
+    new User({
+      name: 'Shawn Drost',
+      email: 'shawn@hr.com',
+      password: 'shawn',
+      lessons: [{lessonId: lesson._id, score: '4/6'}]
+    })
+    .save(err => {
+      if (err) {
+        log.error(err)
+      }
+    })
 
     new Content({
       order: 0,
