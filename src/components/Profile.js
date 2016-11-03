@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, Dimensions, ScrollView } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class Profile extends Component {
 
@@ -22,16 +23,20 @@ class Profile extends Component {
       return user.json()
     })
     .then(user => {
-      console.log(user)
-      this.setState({user: user})
+      this.setState({user: user[0]})
     })
   }
 
   render() {
-    const { viewStyle, textStyle } = styles;
+    const { viewStyle, textStyle, profileStyle, nameTextStyle } = styles;
     if (this.state.user) {
+      console.log(this.state.user)
       return (
-        <View style={viewStyle}>
+        <View style={profileStyle}>
+          <Text style={nameTextStyle}>
+          <Icon name="user-circle" size={50} />
+           {' ' + this.state.user.name}
+          </Text>
           <Text style={textStyle}>Show Profile Here </Text>
         </View>
       )
@@ -99,10 +104,23 @@ const styles = {
     height: undefined,
     resizeMode: 'contain',
   },
+  nameTextStyle: {
+    color:'#1c1c1c',
+    fontSize: 33,
+    lineHeight: 60
+  },
   textStyle: {
     color: '#1c1c1c',
     fontSize: 15,
     lineHeight: 30,
+  },
+  profileStyle: {
+    marginTop: 70,
+    height: Dimensions.get("window").height,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    backgroundColor: 'white',
+    flex: 1
   },
   imageViewStyle: {
     height: 100,
