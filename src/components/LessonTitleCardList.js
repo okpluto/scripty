@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Text, View, Dimensions, ScrollView } from 'react-native';
 import LessonTitleCard from './lessonTitleCard';
+import { localIp } from '../../config/ip.js'
 
 class LessonTitleCardList extends Component {
-  
+
   constructor(props) {
     super(props);
 
@@ -16,8 +17,8 @@ class LessonTitleCardList extends Component {
 
   // Get all of the lesson titles & ids
   getLessonDetails() {
-    const url = 'http://localhost:3011/api/lessons'
-    fetch(url)
+    const url = `http://${localIp}:3011/api/lessons`
+    fetch(url, {method:'GET', body: null})
     .then(data => {
       return data.json()
     })
@@ -30,11 +31,11 @@ class LessonTitleCardList extends Component {
     const { viewStyle } = styles;
     return (
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={viewStyle} >
-        { 
+        {
           this.state.lessonDetails.map(lesson => {
-          return <LessonTitleCard lessonTitle={lesson.title} 
+          return <LessonTitleCard lessonTitle={lesson.title}
             lessonId={lesson._id}
-            navigator={ this.props.navigator } 
+            navigator={ this.props.navigator }
             key={lesson._id} />
           })
         }

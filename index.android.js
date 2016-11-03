@@ -9,45 +9,48 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  ScrollView,
+  StatusBar,
+  Dimensions,
+  Navigator
 } from 'react-native';
+import Header from './src/components/header';
+import LessonTitleCard from './src/components/lessonTitleCard';
+import LessonTitleCardList from './src/components/LessonTitleCardList';
+import Login from './src/components/login';
+import Lesson from './src/components/Lesson';
+import LessonComplete from './src/components/LessonComplete';
 
-export default class scripty extends Component {
+
+
+class scripty extends Component {
+
+  renderScene(route, navigator) {
+    const { name, passProps } = route;
+    if (name === 'Home') {
+      return <LessonTitleCardList navigator={navigator} />
+    } else if (name === 'Login') {
+      return <Login navigator={navigator} />
+    } else if (name === 'Lesson') {
+      return <Lesson navigator={navigator} {...passProps} />
+    } else if (name === 'LessonComplete') {
+      return <LessonComplete navigator={navigator} {...passProps} />
+    }
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
-    );
+      <Navigator
+      style={{ backgroundColor: 'white', }}
+      navigationBar={<Header />}
+      initialRoute={{ name:'Login' }}
+      renderScene={this.renderScene}
+      />
+    )
   }
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+
 
 AppRegistry.registerComponent('scripty', () => scripty);

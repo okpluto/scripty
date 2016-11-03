@@ -7,20 +7,30 @@ const log = require('../helpers/log');
 const send500 = require('../helpers/send500');
 const send404 = require('../helpers/send404');
 
-exports.getUsers = (req, res) => {};
+exports.getUsers = (req, res) => {
+  User.find({}, (err, users) => {
+    if (err) {
+      log.error(err);
+      send404(res, 'No Users Found')
+      return;
+    }
+    console.log(users)
+    res.status(200).json(users);
+  })
+};
 
 // TODO(Mitch): Needs testing.
 exports.getUserById = (req, res) => {
   const id = req.params.id;
-  const {name, email, password} = req.body;
+  // const {name, email, password} = req.body;
 
-  Lesson.update({id: ObjId(id)}, {name, email, password}, (err) => {
-    if (err) {
-      send500(res, err);
-    } else {
-      res.status(201).send({name, email});
-    }
-  });
+  // Lesson.update({id: ObjId(id)}, {name, email, password}, (err) => {
+  //   if (err) {
+  //     send500(res, err);
+  //   } else {
+  //     res.status(201).send({name, email});
+  //   }
+  // });
 };
 
 exports.createUser = (req, res) => {};
