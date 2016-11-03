@@ -18,7 +18,7 @@ const mongoose = require('mongoose');
  */
 
 const lessonSchema = mongoose.Schema({
-  title: String,
+  title: {type: String, index: {unique: true}},
   description: String,
 });
 
