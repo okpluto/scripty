@@ -22,13 +22,14 @@ const Header = () => {
 const styles = {
   viewStyle: {
     backgroundColor: '#FA848A',
-
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
 
     height: 60,
     width: Dimensions.get("window").width,
-    paddingTop: 15,
+    resizeMode: 'contain',
+    //paddingTop: 15,
 
     // shadowColor: 'black',
     // shadowOffset: { width: 0, height: 2 },
@@ -45,7 +46,7 @@ const styles = {
   },
   imageStyle: {
     flex: 1,
-    width: 72,
+    width: 100,
     height: undefined,
     resizeMode: 'contain',
     marginTop: 5,
