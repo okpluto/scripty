@@ -28,7 +28,7 @@ const styles = {
 
     height: 60,
     width: Dimensions.get("window").width,
-    resizeMode: 'contain',
+
     //paddingTop: 15,
 
     // shadowColor: 'black',

@@ -70,7 +70,7 @@ class Lesson extends Component {
     let questions = this.state.questions;
 
     if (this.state.currentQuestion >= questions.length - 1) {
-      this.navigate("LessonComplete");
+      this.navigate("lessonComplete");
     } else {
       this.setState({currentQuestion: this.state.currentQuestion + 1,
         clicked: false})
