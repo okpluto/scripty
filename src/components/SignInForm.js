@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Image, Modal, Dimensions, TouchableHighlight, TextInput, Button } from 'react-native';
+import { Text, View, Image, Modal, Dimensions, TouchableHighlight, TextInput} from 'react-native';
 
 
 
