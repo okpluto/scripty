@@ -15,7 +15,6 @@ exports.getAllLessons = (req, res) => {
       log.error(err);
       return;
     }
-    console.log(lessons);
     res.status(200).json(lessons);
   });
 };

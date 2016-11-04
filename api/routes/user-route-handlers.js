@@ -9,14 +9,12 @@ const send500 = require('../helpers/send500');
 const send404 = require('../helpers/send404');
 
 exports.getUsers = (req, res) => {
-  console.log('fired');
   User.find({}, (err, users) => {
     if (err) {
       log.error(err);
       send404(res, 'No Users Found')
       return;
     }
-    console.log(users)
     res.status(200).json(users);
   })
 };
@@ -46,7 +44,6 @@ exports.signin = (req, res) => {
         res.status(404).send('User does not exist')
       } else {
         user.comparePassword(password, user.password, (error, match) => {
-          console.log('user:' , user);
           if (match) {
             var token = jwt.encode(user.toString(), 'scriptyyyy');
             res.json({token: token});
