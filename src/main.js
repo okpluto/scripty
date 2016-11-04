@@ -16,7 +16,7 @@ import SignInForm from './components/SignInForm';
 import SignUpForm from './components/SignUpForm';
 import Lesson from './components/Lesson';
 import LessonComplete from './components/LessonComplete';
-
+import Profile from './components/Profile';
 
 const Routes = {
   signIn: SignInForm,
