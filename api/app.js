@@ -11,6 +11,7 @@ const db = require('./data/config');
 const app = express();
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 // Apply headers
 app.use((req, res, next) => {
@@ -33,9 +34,10 @@ app.post('/api/lessons', lessonHandlers.createLesson);
 app.put('/api/lessons/:id', lessonHandlers.updateLessonById);
 app.delete('/api/lessons/:id', lessonHandlers.deleteLessonById);
 
+app.post('/api/users/signin', userHandlers.signin);
+app.post('/api/users/signup', userHandlers.createUser);
 app.get('/api/users', userHandlers.getUsers);
 app.get('/api/users/:id', userHandlers.getUserById);
-app.post('/api/users', userHandlers.createUser);
 app.put('/api/users/:id', userHandlers.updateUserById);
 app.delete('/api/users/:id', userHandlers.deleteUserById);
 
