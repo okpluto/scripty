@@ -27,6 +27,7 @@ const mongoose = require('mongoose');
 const contentSchema = mongoose.Schema({
   order: {type: Number, default: 0},
   type: String,
+  name: String,
   text: String,
   choices: [String],
   answer: String,
