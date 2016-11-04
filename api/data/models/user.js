@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt-nodejs');
+const Promise = require('bluebird');
+var SALT_WORK_FACTOR = 10;
 
 /* Data type: User
  *
@@ -15,13 +18,50 @@ const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema({
   name: String,
-  email: {type: String, index: {unique: true}},
   password: String,
+  email: {type: String, index: {unique: true}},
   lessons: [],
   lastLessonDate: Date,
-  streak: [Number]
+  streak: [Number],
+  salt: String
+});
+
+
+userSchema.methods.comparePassword = (password, userPassword, next) => {
+  bcrypt.compare(password, userPassword, (err, isMatch) => {
+    if (err) {
+      return next(err);
+    }
+    next(null, isMatch);
+  })
+};
+
+
+userSchema.pre('save', function (next) {
+  var user = this;
+
+  // generate a salt
+  bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
+    if (err) {
+      return next(err);
+    }
+
+    // hash the password along with our new salt
+    bcrypt.hash(user.password, salt, null, function (err, hash) {
+      if (err) {
+        return next(err);
+      }
+
+      // override the cleartext password with the hashed one
+      user.password = hash;
+      user.salt = salt;
+      next();
+    });
+
+  });
 });
 
 const User = mongoose.model('User', userSchema);
+
 
 module.exports = User;

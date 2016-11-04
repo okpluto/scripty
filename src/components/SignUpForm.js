@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import {AsyncStorage} from 'react-native'
 import { Text, View, Image, Modal, Dimensions, TouchableHighlight, TextInput, Button } from 'react-native';
-
+import { localIp } from '../../config/ip.js'
 
 
 class SignInForm extends React.Component {
@@ -9,6 +10,7 @@ class SignInForm extends React.Component {
     this.state = {
       username: '',
       password: '',
+      email: '',
       confirmPassword: ''
     }
   }
@@ -18,8 +20,31 @@ class SignInForm extends React.Component {
   }
 
   handleSignUpPress() {
-    //TODO(Daisy) --> post request to api/createuser
-    this.props.navigator.push({name: 'lessonTitleCardList'})
+    let url=`http://${localIp}:3011/api/users/signup`;
+    const data = {
+      username: this.state.username,
+      email: this.state.email,
+      password: this.state.password
+    };
+    const json = JSON.stringify(data);
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: json
+    })
+    .then(response => response.json())
+    .then((res) => {
+      console.log('response:', res);
+      if (res.error) {
+        alert(res.error)
+      } else {
+        AsyncStorage.setItem('jwt', res.token)
+        this.props.navigator.push({name: 'lessonTitleCardList'})
+      }
+    })
   }
 
   render() {
@@ -30,6 +55,14 @@ class SignInForm extends React.Component {
       <View style={viewStyle}>
         <Text style={darkTextStyle}>Welcome to Scripty</Text>
         <View>
+          <TextInput
+            style={textInputStyle}
+            placeholder={"email"}
+            autoCapitalize={'none'}
+            returnKeyType={'go'}
+            enablesReturnKeyAutomatically={true}
+            onChangeText={ (text) => this.setState({email: text})}
+          />
           <TextInput
             style={textInputStyle}
             placeholder={"username"}

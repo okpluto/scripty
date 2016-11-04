@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import {AsyncStorage} from 'react-native';
 import { Text, View, Image, Modal, Dimensions, TouchableHighlight, TextInput} from 'react-native';
-
+import { localIp } from '../../config/ip.js'
 
 
 class SignInForm extends React.Component {
@@ -18,6 +19,35 @@ class SignInForm extends React.Component {
 
   handleSignInPress() {
     //TODO(Daisy) --> post request to api/signin
+    let url=`http://${localIp}:3011/api/users/signin`;
+    const data = {
+      username: this.state.username,
+      password: this.state.password
+    };
+    const json = JSON.stringify(data);
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: json
+    })
+    .then(response => {
+      if (response.status === 404) {
+        console.log('Please verify username and password');
+
+      } else {
+        return response.json();
+      }
+    })
+    .then(res => {
+      if (res) {
+      AsyncStorage.setItem('jwt', res.token)
+      this.props.navigator.push({name: 'lessonTitleCardList'})
+      }}
+    )
+
   }
 
   render() {

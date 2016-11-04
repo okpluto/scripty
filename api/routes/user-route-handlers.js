@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const User = require('../data/models/user');
+const jwt = require('jwt-simple');
 
 const ObjId = mongoose.Types.ObjectId;
 
@@ -14,13 +15,13 @@ exports.getUsers = (req, res) => {
       send404(res, 'No Users Found')
       return;
     }
-    console.log(users)
     res.status(200).json(users);
   })
 };
 
 // TODO(Mitch): Needs testing.
 exports.getUserById = (req, res) => {
+  console.log('request received');
   const id = req.params.id;
   // const {name, email, password} = req.body;
 
@@ -33,7 +34,48 @@ exports.getUserById = (req, res) => {
   // });
 };
 
-exports.createUser = (req, res) => {};
+exports.signin = (req, res) => {
+  var username = req.body.username;
+  var password = req.body.password;
+
+  User.findOne({name: username})
+    .then(user => {
+      if (!user) {
+        res.status(404).send('User does not exist')
+      } else {
+        user.comparePassword(password, user.password, (error, match) => {
+          if (match) {
+            var token = jwt.encode(user.toString(), 'scriptyyyy');
+            res.json({token: token});
+          } else {
+            res.send(404, 'password is not correct');
+          }
+        })
+      }
+    })
+};
+
+exports.createUser = (req, res) => {
+  var username = req.body.username;
+  var password = req.body.password;
+  var email = req.body.email
+  User.findOne({ name: username })
+    .then((error, user) =>{
+      if (!user) {
+        var newUser = new User({
+          name: username,
+          password: password,
+          email: email
+        });
+        newUser.save((error, newUser) => {
+          var token = jwt.encode(newUser, 'scriptyyyy');
+          res.json({token: token, user: newUser});
+        })
+      } else {
+        res.send(404, 'User already exist!');
+      }
+    });
+};
 
 exports.updateUserById = (req, res) => {
   const id = req.params.id;

@@ -9,6 +9,7 @@ const send500 = require('../helpers/send500');
 const send404 = require('../helpers/send404');
 
 exports.getAllLessons = (req, res) => {
+
   Lesson.find({}, (err, lessons) => {
     if (err) {
       log.error(err);
