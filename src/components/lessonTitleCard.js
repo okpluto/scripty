@@ -17,7 +17,7 @@ const LessonTitleCard = ({ lessonTitle, navigator, lessonId }) => {
   };
 
   return (
-    <TouchableHighlight onPress={navigate.bind(this, 'Lesson', lessonId)} underlayColor={grey} style={buttonStyle}>
+    <TouchableHighlight onPress={navigate.bind(this, 'lesson', lessonId)} underlayColor={grey} style={buttonStyle}>
       <View style={viewStyle}>
         <View style={circleStyle}></View>
         <Text style={textStyle}>{lessonTitle}</Text>

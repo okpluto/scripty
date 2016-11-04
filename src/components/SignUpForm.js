@@ -8,16 +8,18 @@ class SignInForm extends React.Component {
     super(props);
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      confirmPassword: ''
     }
   }
 
-  handleSignUpPress() {
-    this.props.navigator.push({name: 'signUp'});
+  handleSignInPress() {
+    this.props.navigator.pop();
   }
 
-  handleSignInPress() {
-    //TODO(Daisy) --> post request to api/signin
+  handleSignUpPress() {
+    //TODO(Daisy) --> post request to api/createuser
+    this.props.navigator.push({name: 'lessonTitleCardList'})
   }
 
   render() {
@@ -44,14 +46,24 @@ class SignInForm extends React.Component {
             secureTextEntry={true}
             returnKeyType={'go'}
             enablesReturnKeyAutomatically={true}
-            onChangeText={(text) => this.setState({password: text})}
+            onChangeText={ (text) => this.setState({password: text})}
+          />
+          <TextInput
+            style={textInputStyle}
+            secureTextEntry={true}
+            placeholder={"confirm password"}
+            autoCapitalize={'none'}
+            secureTextEntry={true}
+            returnKeyType={'go'}
+            enablesReturnKeyAutomatically={true}
+            onChangeText={ (text) => this.setState({confirmPassword: text})}
           />
         </View>
 
-        <TouchableHighlight onPress={this.handleSignInPress.bind(this)} style={{...cardStyle, ...pinkCardStyle}} underlayColor={darkCoral} >
-          <Text style={lightTextStyle}>Sign In</Text>
+        <TouchableHighlight onPress={this.handleSignUpPress.bind(this)} style={{...cardStyle, ...pinkCardStyle}} underlayColor={darkCoral} >
+          <Text style={lightTextStyle}>Sign Up</Text>
         </TouchableHighlight>
-        <Text onPress={this.handleSignUpPress.bind(this)} style={darkTextStyle}>Don't have an account?</Text>
+        <Text onPress={this.handleSignInPress.bind(this)} style={darkTextStyle}>Already have an account?</Text>
       </View>
     )
   }
