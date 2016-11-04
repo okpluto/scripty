@@ -28,10 +28,7 @@ const styles = {
 
     height: 60,
     width: Dimensions.get("window").width,
-<<<<<<< bd46df243a772ee7b443f96a5c422d5751380893
 
-=======
->>>>>>> removing resize
     //paddingTop: 15,
 
     // shadowColor: 'black',
