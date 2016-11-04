@@ -46,7 +46,7 @@ exports.signin = (req, res) => {
         user.comparePassword(password, user.password, (error, match) => {
           if (match) {
             var token = jwt.encode(user.toString(), 'scriptyyyy');
-            res.json({token: token});
+            res.json({token: token, id: user._id});
           } else {
             res.send(404, 'password is not correct');
           }
@@ -69,7 +69,7 @@ exports.createUser = (req, res) => {
         });
         newUser.save((error, newUser) => {
           var token = jwt.encode(newUser, 'scriptyyyy');
-          res.json({token: token, user: newUser});
+          res.json({token: token, id: user._id});
         })
       } else {
         res.send(404, 'User already exist!');

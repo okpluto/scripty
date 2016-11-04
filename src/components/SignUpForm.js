@@ -41,7 +41,7 @@ class SignInForm extends React.Component {
       if (res.error) {
         alert(res.error)
       } else {
-        AsyncStorage.setItem('jwt', res.token, () => {
+        AsyncStorage.setItem([['jwt', res.token],['id', res.id]], () => {
           this.props.navigator.push({name: 'lessonTitleCardList'});
         });
       }

@@ -6,7 +6,6 @@ import Days from './days'
 import ProfileInfo from './ProfileInfo'
 
 
-
 class Profile extends Component {
 
   constructor(props) {
