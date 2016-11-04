@@ -24,7 +24,7 @@ const createdLesson = new Lesson({
       name: 'Shawn Drost',
       email: 'shawn@hr.com',
       password: 'shawn',
-      lessons: [{lessonId: lesson._id, title: lesson.title, score: '4/6'}, {lessonId: lesson._id, title: 'Data Structures', score: '6/6'}, {lessonId: lesson._id, title: 'Recursion', score: '2/6'}, {lessonId: lesson._id, title: lesson.title, score: '4/6'}, {lessonId: lesson._id, title: 'Data Structures', score: '6/6'}, {lessonId: lesson._id, title: 'Recursion', score: '2/6'}],
+      lessons: [{lessonId: lesson._id, title: lesson.title, score: '4/6'}, {lessonId: lesson._id, title: 'Data Structures', score: '6/6'}, {lessonId: lesson._id, title: 'Recursion', score: '2/6'}, {lessonId: lesson._id, title: lesson.title, score: '4/6'}, {lessonId: lesson._id, title: 'Data Structures', score: '6/6'}, {lessonId: lesson._id, title: 'Recursion', score: '2/6'}, {lessonId: lesson._id, title: 'Recursion', score: '2/6'}, {lessonId: lesson._id, title: lesson.title, score: '4/6'}, {lessonId: lesson._id, title: 'Data Structures', score: '6/6'}],
       lastLessonDate: new Date("November 2, 2016"),
       streak: [2,3,4]
     })
