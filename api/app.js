@@ -28,8 +28,6 @@ app.use((req, res, next) => {
 });
 
 // Define routes
-app.post('/api/users/signin', userHandlers.signin);
-app.post('/api/users/signup', userHandlers.createUser);
 
 app.get('/api/lessons', checkAuth, lessonHandlers.getAllLessons);
 app.get('/api/lessons/:id', lessonHandlers.getLessonAndContentsById);
@@ -37,6 +35,8 @@ app.post('/api/lessons', lessonHandlers.createLesson);
 app.put('/api/lessons/:id', lessonHandlers.updateLessonById);
 app.delete('/api/lessons/:id', lessonHandlers.deleteLessonById);
 
+app.post('/api/users/signin', userHandlers.signin);
+app.post('/api/users/signup', userHandlers.createUser);
 app.get('/api/users', userHandlers.getUsers);
 app.get('/api/users/:id', userHandlers.getUserById);
 app.put('/api/users/:id', userHandlers.updateUserById);
