@@ -19,7 +19,7 @@ const userSchema = mongoose.Schema({
   password: String,
   lessons: [],
   lastLessonDate: Date,
-  streak: Number
+  streak: [Number]
 });
 
 const User = mongoose.model('User', userSchema);
