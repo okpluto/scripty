@@ -11,7 +11,8 @@ class SignInForm extends React.Component {
       username: '',
       password: '',
       email: '',
-      confirmPassword: ''
+      confirmPassword: '',
+      errorMessage: ''
     }
   }
 
@@ -20,6 +21,12 @@ class SignInForm extends React.Component {
   }
 
   handleSignUpPress() {
+    if (this.state.password !== this.state.confirmPassword) {
+      this.setState({
+        errorMessage: 'Passwords do not match'
+      });
+      return;
+    }
     let url=`http://${localIp}:3011/api/users/signup`;
     const data = {
       username: this.state.username,
@@ -36,13 +43,19 @@ class SignInForm extends React.Component {
       body: json
     })
     .then(response => {
-      return response.json()
+      if (response.status === 404) {
+        return this.setState({
+          errorMessage: 'This username was already taken',
+          username: '',
+          email:'',
+          password:'',
+          confirmPassword:''
+        });
+      }
+      return response.json();
     })
     .then((res) => {
-      console.log('RESPONSE:', res);
-      if (res.error) {
-        alert(res.error)
-      } else {
+      if (res){
         AsyncStorage.multiSet([['jwt', res.token],['id', res.id]], () => {
           this.props.navigator.push({name: 'lessonTitleCardList'});
         });
@@ -61,6 +74,7 @@ class SignInForm extends React.Component {
           <TextInput
             style={textInputStyle}
             placeholder={"email"}
+            value={this.state.email}
             autoCapitalize={'none'}
             returnKeyType={'go'}
             enablesReturnKeyAutomatically={true}
@@ -69,6 +83,7 @@ class SignInForm extends React.Component {
           <TextInput
             style={textInputStyle}
             placeholder={"username"}
+            value={this.state.username}
             autoCapitalize={'none'}
             returnKeyType={'go'}
             enablesReturnKeyAutomatically={true}
@@ -77,6 +92,7 @@ class SignInForm extends React.Component {
           <TextInput
             style={textInputStyle}
             secureTextEntry={true}
+            value={this.state.password}
             placeholder={"password"}
             autoCapitalize={'none'}
             secureTextEntry={true}
@@ -87,6 +103,7 @@ class SignInForm extends React.Component {
           <TextInput
             style={textInputStyle}
             secureTextEntry={true}
+            value={this.state.confirmPassword}
             placeholder={"confirm password"}
             autoCapitalize={'none'}
             secureTextEntry={true}
@@ -95,10 +112,11 @@ class SignInForm extends React.Component {
             onChangeText={ (text) => this.setState({confirmPassword: text})}
           />
         </View>
-
+        <Text style={darkTextStyle}>{this.state.errorMessage}</Text>
         <TouchableHighlight onPress={this.handleSignUpPress.bind(this)} style={{...cardStyle, ...pinkCardStyle}} underlayColor={darkCoral} >
           <Text style={lightTextStyle}>Sign Up</Text>
         </TouchableHighlight>
+
         <Text onPress={this.handleSignInPress.bind(this)} style={darkTextStyle}>Already have an account?</Text>
       </View>
     )
