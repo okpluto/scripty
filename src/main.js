@@ -24,7 +24,8 @@ const Routes = {
   lesson: Lesson,
   lessonComplete: LessonComplete,
   lessonTitleCardList: LessonTitleCardList,
-  lessonTitleCard: LessonTitleCard
+  lessonTitleCard: LessonTitleCard,
+  profile: Profile
 };
 
 class Scripty extends Component {

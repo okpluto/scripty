@@ -18,7 +18,6 @@ class SignInForm extends React.Component {
   }
 
   handleSignInPress() {
-    //TODO(Daisy) --> post request to api/signin
     let url=`http://${localIp}:3011/api/users/signin`;
     const data = {
       username: this.state.username,
@@ -42,9 +41,11 @@ class SignInForm extends React.Component {
       }
     })
     .then(res => {
+      console.log('RESPONSE:', res);
       if (res) {
-      AsyncStorage.setItem('jwt', res.token)
-      this.props.navigator.push({name: 'lessonTitleCardList'})
+        AsyncStorage.multiSet([['jwt', res.token],['id', res.id]], () => {
+          this.props.navigator.push({name: 'lessonTitleCardList'})
+        })
       }}
     )
 

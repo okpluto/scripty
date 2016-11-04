@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const contentHandlers = require('./routes/content-route-handlers');
 const lessonHandlers = require('./routes/lesson-route-handlers');
 const userHandlers = require('./routes/user-route-handlers');
-
+const checkAuth = require('./helpers/checkAuth');
 const log = require('./helpers/log');
 const db = require('./data/config');
 
@@ -28,7 +28,8 @@ app.use((req, res, next) => {
 });
 
 // Define routes
-app.get('/api/lessons', lessonHandlers.getAllLessons);
+
+app.get('/api/lessons', checkAuth, lessonHandlers.getAllLessons);
 app.get('/api/lessons/:id', lessonHandlers.getLessonAndContentsById);
 app.post('/api/lessons', lessonHandlers.createLesson);
 app.put('/api/lessons/:id', lessonHandlers.updateLessonById);
