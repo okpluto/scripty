@@ -68,8 +68,8 @@ exports.createUser = (req, res) => {
           email: email
         });
         newUser.save((error, newUser) => {
-          var token = jwt.encode(newUser, 'scriptyyyy');
-          res.json({token: token, id: user._id});
+          var token = jwt.encode(newUser.toString(), 'scriptyyyy');
+          res.send({token: token, id: newUser._id});
         })
       } else {
         res.send(404, 'User already exist!');
