@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
-import { Text, View, Dimensions, ScrollView } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { Text, View, Dimensions } from 'react-native';
+import { localIp } from '../../config/ip.js'
+import UserLessons from './userLessons'
+import Days from './days'
+import ProfileInfo from './ProfileInfo'
+
+
 
 class Profile extends Component {
 
@@ -12,32 +17,28 @@ class Profile extends Component {
     this.getUserInfo()
   }
 
-
   getUserInfo() {
     //Using get all users to test dummy user
     //Need to get user by ID once signin
     //and save users to DB is implemented
-    let url=`http://10.226.56.128:3011/api/users`
+    let url=`http://${localIp}:3011/api/users`
     fetch(url)
     .then(user => {
       return user.json()
     })
     .then(user => {
-      this.setState({user: user[0]})
+      this.setState({user: user[0]});
     })
   }
 
   render() {
     const { viewStyle, textStyle, profileStyle, nameTextStyle } = styles;
     if (this.state.user) {
-      console.log(this.state.user)
       return (
         <View style={profileStyle}>
-          <Text style={nameTextStyle}>
-          <Icon name="user-circle" size={50} />
-           {' ' + this.state.user.name}
-          </Text>
-          <Text style={textStyle}>Show Profile Here </Text>
+          <ProfileInfo user={this.state.user} />
+          <Days streak={this.state.user.streak} />
+          <UserLessons user={this.state.user}/>
         </View>
       )
     } else {
@@ -64,50 +65,7 @@ const styles = {
     height: Dimensions.get("window").height,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'white',
-    // flexWrap: 'wrap',
-    // flexDirection: 'row',
-  },
-  cardStyle: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'center',
-
-    height: 60,
-    width: Dimensions.get("window").width - 40,
-    marginTop: 20,
-    borderRadius: 5,
-    position: 'relative',
-
-  },
-  pinkCardStyle: {
-    backgroundColor: coral,
-  },
-  whiteCardStyle: {
-    backgroundColor: 'white',
-    borderWidth: 1,
-    borderColor: coral,
-  },
-  darkTextStyle: {
-    color: coral,
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  lightTextStyle: {
-    color: 'white',
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  imageStyle: {
-    flex: 1,
-    width: Dimensions.get("window").width - 40,
-    height: undefined,
-    resizeMode: 'contain',
-  },
-  nameTextStyle: {
-    color:'#1c1c1c',
-    fontSize: 33,
-    lineHeight: 60
+    backgroundColor: 'white'
   },
   textStyle: {
     color: '#1c1c1c',
@@ -121,9 +79,6 @@ const styles = {
     justifyContent: 'flex-start',
     backgroundColor: 'white',
     flex: 1
-  },
-  imageViewStyle: {
-    height: 100,
   }
 }
 
