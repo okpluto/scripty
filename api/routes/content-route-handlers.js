@@ -52,31 +52,23 @@ exports.createContent = (req, res) => { //creating a question!
 
 exports.updateContentById = (req, res) => {
   const id = req.params.id;
+  Content.findById(id, function(err, content) {
+  	if (err) {
+  		log.error(err);
+  	}
+  	console.log("CONTENT ", content);
+  	for (var key in req.body) {
+      content[key] = req.body[key];
+  	}
+  	content.save(function(err, updatedContent) {
+  		if (err) {
+  			log.error(err);
+  		}
+  		res.status(200).send(updatedContent);
+  	})
+  });
 };
 
 exports.deleteContentById = (req, res) => {
   const id = req.params.id;
 };
-
-// TODO(Mitch): Needs testing.
-// exports.createLesson = (req, res) => {
-//   const {title, description, content} = req.body;
-
-//   // Check intergrity of lesson content
-//   if (content.length === 0) {
-//     send500(res, 'Lesson submitted without content.');
-//     return;
-//   }
-
-//   new Lesson({title, description})
-//     .save((err, lesson) => {
-//       content.forEach((item, index) => {
-//         if (item.order === undefined) { item.order = index; }
-
-//         new Content(item)
-//           .save(err => err ? log.error(err) : null);
-//       });
-//     });
-
-//   res.status(201).send();
-// };
