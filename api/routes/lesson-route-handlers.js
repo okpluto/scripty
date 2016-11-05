@@ -42,7 +42,6 @@ exports.getLessonAndContentsById = (req, res) => {
 
 exports.createLesson = (req, res) => {
   req.body.published = false;
-
   new Lesson(req.body)
     .save((err, lesson) => {
       if (err) {
