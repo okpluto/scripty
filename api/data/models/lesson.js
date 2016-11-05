@@ -22,7 +22,8 @@ const lessonSchema = mongoose.Schema({
   description: String,
   difficultyRating: Number,
   category: String,
-  published: Boolean
+  published: Boolean,
+  length: {type: Number, default: 0}
 });
 
 const Lesson = mongoose.model('Lesson', lessonSchema);

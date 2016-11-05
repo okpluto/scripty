@@ -40,27 +40,17 @@ exports.getLessonAndContentsById = (req, res) => {
   });
 };
 
-// TODO(Mitch): Needs testing.
 exports.createLesson = (req, res) => {
-  const {title, description, content} = req.body;
-
-  // Check intergrity of lesson content
-  if (content.length === 0) {
-    send500(res, 'Lesson submitted without content.');
-    return;
-  }
-
-  new Lesson({title, description})
+  req.body.published = false;
+  new Lesson(req.body)
     .save((err, lesson) => {
-      content.forEach((item, index) => {
-        if (item.order === undefined) { item.order = index; }
-
-        new Content(item)
-          .save(err => err ? log.error(err) : null);
-      });
+      if (err) {
+        log.error("Rut roh~ ", err);
+        send500(res, "Lesson wasn't saved correctly!!");
+      }
+      console.log("This is the lesson: ", lesson);
+      res.status(201).send(lesson._id);
     });
-
-  res.status(201).send();
 };
 
 exports.updateLessonById = (req, res) => {
