@@ -48,7 +48,7 @@ exports.signin = (req, res) => {
             var token = jwt.encode(user.toString(), 'scriptyyyy');
             res.json({token: token, id: user._id});
           } else {
-            res.send(404, 'password is not correct');
+            res.send(401, 'password is not correct');
           }
         })
       }
@@ -60,7 +60,7 @@ exports.createUser = (req, res) => {
   var password = req.body.password;
   var email = req.body.email
   User.findOne({ name: username })
-    .then((error, user) =>{
+    .then((user) =>{
       if (!user) {
         var newUser = new User({
           name: username,

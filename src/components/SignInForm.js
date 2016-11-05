@@ -34,14 +34,22 @@ class SignInForm extends React.Component {
     })
     .then(response => {
       if (response.status === 404) {
-        console.log('Please verify username and password');
-
+        return this.setState({
+          errorMessage: 'User does not exist',
+          username: '',
+          password:''
+        });
+      } else if (response.status === 401){
+        return this.setState({
+          errorMessage: 'Username or password do not match',
+          username: '',
+          password:''
+        });
       } else {
         return response.json();
       }
     })
     .then(res => {
-      console.log('RESPONSE:', res);
       if (res) {
         AsyncStorage.multiSet([['jwt', res.token],['id', res.id]], () => {
           this.props.navigator.push({name: 'lessonTitleCardList'})
@@ -62,6 +70,7 @@ class SignInForm extends React.Component {
           <TextInput
             style={textInputStyle}
             placeholder={"username"}
+            value={this.state.username}
             autoCapitalize={'none'}
             returnKeyType={'go'}
             enablesReturnKeyAutomatically={true}
@@ -70,6 +79,7 @@ class SignInForm extends React.Component {
           <TextInput
             style={textInputStyle}
             secureTextEntry={true}
+            value={this.state.password}
             placeholder={"password"}
             autoCapitalize={'none'}
             secureTextEntry={true}
@@ -78,10 +88,11 @@ class SignInForm extends React.Component {
             onChangeText={(text) => this.setState({password: text})}
           />
         </View>
-
+        <Text style={darkTextStyle}>{this.state.errorMessage}</Text>
         <TouchableHighlight onPress={this.handleSignInPress.bind(this)} style={{...cardStyle, ...pinkCardStyle}} underlayColor={darkCoral} >
           <Text style={lightTextStyle}>Sign In</Text>
         </TouchableHighlight>
+
         <Text onPress={this.handleSignUpPress.bind(this)} style={darkTextStyle}>Don't have an account?</Text>
       </View>
     )
