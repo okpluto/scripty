@@ -4,7 +4,6 @@ const User = require('../data/models/user');
 
 const checkAuth = (req, res, next) => {
   var token = req.headers.authorization;
-  console.log(token);
     if (!token) {
       next(new Error('No token'));
     } else {

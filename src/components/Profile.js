@@ -75,9 +75,9 @@ const styles = {
     marginTop: 70,
     height: Dimensions.get("window").height,
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    //justifyContent: 'flex-start',
     backgroundColor: 'white',
-    flex: 1
+    //flex: 1
   }
 }
 

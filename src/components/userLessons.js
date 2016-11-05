@@ -31,7 +31,7 @@ class UserLessons extends Component {
       styleCopy[key] = style[key]
     }
     let contentNum = this.props.user.lessons.length;
-    let height = contentNum * 43 + 5
+    let height = contentNum * 45 + 5
     styleCopy.height = height
     return styleCopy;
   }
@@ -40,7 +40,7 @@ class UserLessons extends Component {
     const { textStyle, lessonStyle, scrollStyle, scoreCircle, lessonContainerStyle } = styles;
     return (
       <View>
-        <Text style={textStyle}>Your Progress</Text>
+        <Text style={textStyle}>Your Lessons</Text>
         <View style={{height: 290, marginTop: 10}}>
           <ScrollView contentContainerStyle={this.getScrollHeight(scrollStyle)}>
             {this.props.user.lessons.map(lesson => (
@@ -62,10 +62,10 @@ const grey = '#FAFAFA'
 
 const styles = {
   scrollStyle: {
-    flex: 1,
-    flexDirection: 'column',
+    //flex: 1,
+    //flexDirection: 'column',
     backgroundColor: grey,
-    justifyContent: 'flex-start',
+    //justifyContent: 'flex-start',
     width: Dimensions.get("window").width - 40,
     borderRadius: 5,
     borderWidth: 1,
@@ -81,7 +81,7 @@ const styles = {
   lessonContainerStyle: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    height: 43
+    height: 45
   },
   scoreCircle: {
     borderRadius: 100/2,

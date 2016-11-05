@@ -38,7 +38,7 @@ class Scripty extends Component {
   render() {
     return (
       <Navigator
-      style={{ backgroundColor: 'white' }}
+      style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'stretch' }}
       navigationBar={<Header />}
       initialRoute={{ name:'signIn' }}
       renderScene={this.renderScene}
