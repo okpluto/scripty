@@ -21,6 +21,7 @@ const userSchema = mongoose.Schema({
   password: String,
   email: {type: String, index: {unique: true}},
   lessons: [],
+  createdLessons: [],
   lastLessonDate: Date,
   streak: [Number],
   salt: String

@@ -23,15 +23,11 @@ exports.getUsers = (req, res) => {
 exports.getUserById = (req, res) => {
   console.log('request received');
   const id = req.params.id;
-  // const {name, email, password} = req.body;
-
-  // Lesson.update({id: ObjId(id)}, {name, email, password}, (err) => {
-  //   if (err) {
-  //     send500(res, err);
-  //   } else {
-  //     res.status(201).send({name, email});
-  //   }
-  // });
+  User.findById(id)
+  .then(user => {
+    console.log(user)
+    res.status(200).json({createdLessons: user.createdLessons})
+  })
 };
 
 exports.signin = (req, res) => {
