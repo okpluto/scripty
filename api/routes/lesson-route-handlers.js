@@ -55,7 +55,21 @@ exports.createLesson = (req, res) => {
 
 exports.updateLessonById = (req, res) => {
   const id = req.params.id;
-  //TODO(Mitch): Fill me in!
+  Lesson.findById(id, function(err, lesson) {
+    if (err) {
+      log.error(err);
+    }
+    console.log("LESSON ", lesson);
+    for (var key in req.body) {
+      lesson[key] = req.body[key];
+    }
+    lesson.save(function(err, updatedLesson) {
+      if (err) {
+        log.error(err);
+      }
+      res.status(200).send(updatedLesson);
+    })
+  });
 };
 
 exports.deleteLessonById = (req, res) => {
