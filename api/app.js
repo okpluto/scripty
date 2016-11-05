@@ -16,8 +16,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 // Apply headers
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,UPDATE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,UPDATE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
   next();
 });
 
@@ -39,7 +39,7 @@ app.delete('/api/lessons/:id', lessonHandlers.deleteLessonById);
 app.post('/api/users/signin', userHandlers.signin);
 app.post('/api/users/signup', userHandlers.createUser);
 app.get('/api/users', userHandlers.getUsers);
-app.get('/api/users/:id', userHandlers.getUserById);
+app.get('/api/users/:id', checkAuth, userHandlers.getUserById);
 app.put('/api/users/:id', userHandlers.updateUserById);
 app.delete('/api/users/:id', userHandlers.deleteUserById);
 
