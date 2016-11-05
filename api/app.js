@@ -29,6 +29,7 @@ app.use((req, res, next) => {
 
 // Define routes
 
+
 app.get('/api/lessons', lessonHandlers.getAllLessons);
 app.get('/api/lessons/:id', lessonHandlers.getLessonAndContentsById);
 app.post('/api/lessons', lessonHandlers.createLesson);
