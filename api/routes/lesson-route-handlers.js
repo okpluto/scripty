@@ -61,7 +61,16 @@ exports.updateLessonById = (req, res) => {
     }
     console.log("LESSON ", lesson);
     for (var key in req.body) {
-      lesson[key] = req.body[key];
+      // Update average rating
+      if (key === 'userRating') {
+        let currRating = lesson.userRating[0]
+        let numRatings = lesson.userRating[1]
+        let newRating = lesson.userRating[0] === 0 ? req.body[key] :
+        (currRating * numRatings + req.body[key]) / (numRatings + 1)
+        lesson[key] = [newRating, ++numRatings]
+      } else {
+        lesson[key] = req.body[key];
+      }
     }
     lesson.save(function(err, updatedLesson) {
       if (err) {
