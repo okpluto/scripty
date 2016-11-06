@@ -14,7 +14,7 @@ class LessonComplete extends Component {
 
   navigate(routeName) {
     this.saveResults()
-    this.props.navigator.push({name:routeName});
+    this.props.navigator.immediatelyResetRouteStack([{name:routeName}]);
   }
 
   getTotal() {
@@ -41,16 +41,18 @@ class LessonComplete extends Component {
 
     //saves rating to lesson
     let rating = this.state.rating.reduce((a, b) => a + b);
-    let url = `http://${localIp}:3011/api/lessons/${this.props.lessonId}`
-    fetch(url, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({userRating: rating})
-    })
-    .then(data => data.json())
-    .then(data=> console.log(data))
+    if (rating) {
+      let url = `http://${localIp}:3011/api/lessons/${this.props.lessonId}`
+      fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({userRating: rating})
+      })
+      .then(data => data.json())
+      .then(data=> console.log(data))
+    }
   }
 
   render() {
