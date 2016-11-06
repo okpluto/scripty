@@ -35,9 +35,9 @@ class Profile extends Component {
     if (this.state.user) {
       return (
         <View style={profileStyle}>
-          <ProfileInfo user={this.state.user} />
-          <Days streak={this.state.user.streak} />
-          <UserLessons user={this.state.user}/>
+          <ProfileInfo user={this.state.user} navigator={ this.props.navigator }/>
+          <Days streak={this.state.user.streak} navigator={ this.props.navigator }/>
+          <UserLessons user={this.state.user} navigator={ this.props.navigator }/>
         </View>
       )
     } else {

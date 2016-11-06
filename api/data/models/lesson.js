@@ -21,6 +21,9 @@ const lessonSchema = mongoose.Schema({
   title: {type: String, index: {unique: true}},
   description: String,
   difficultyRating: Number,
+  //First num in array is rating, 2nd num is total # of user ratings
+  //for calculating average
+  userRating: {type: Array, default: [0,0]},
   category: String,
   published: Boolean,
   length: {type: Number, default: 0}

@@ -7,17 +7,18 @@ import { Text, View, Dimensions, TouchableHighlight } from 'react-native';
 const LessonTitleCard = ({ lessonTitle, navigator, lessonId }) => {
   const { buttonStyle, viewStyle, textStyle, circleStyle } = styles;
 
-  const navigate = (routeName, id) => {
+  const navigate = (routeName, id, lessonTitle) => {
     navigator.push({
       name:routeName,
       passProps: {
-        id: id
+        id: id,
+        title: lessonTitle
       }
     })
   };
 
   return (
-    <TouchableHighlight onPress={navigate.bind(this, 'lesson', lessonId)} underlayColor={grey} style={buttonStyle}>
+    <TouchableHighlight onPress={navigate.bind(this, 'lesson', lessonId, lessonTitle)} underlayColor={grey} style={buttonStyle}>
       <View style={viewStyle}>
         <View style={circleStyle}></View>
         <Text style={textStyle}>{lessonTitle}</Text>

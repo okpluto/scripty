@@ -57,7 +57,7 @@ class SignInForm extends React.Component {
     .then((res) => {
       if (res){
         AsyncStorage.multiSet([['jwt', res.token],['id', res.id]], () => {
-          this.props.navigator.push({name: 'lessonTitleCardList'});
+          this.props.navigator.push({name: 'home'});
         });
       }
     })

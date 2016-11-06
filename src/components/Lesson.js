@@ -43,23 +43,29 @@ class Lesson extends Component {
       passProps: {
         numberCorrect: this.state.numberCorrect,
         numberIncorrect: this.state.numberIncorrect,
+        lessonId: this.props.id,
+        lessonTitle: this.props.title
       }
     });
   }
 
+
   // When any choice is clicked, change the state of this parent component to reflect that action
   handleAnswerButtonClick(buttonText) {
-    this.setState({ clicked: true });
-    this.setState({ pressedButton: buttonText });
+    if (!this.state.clicked) {
+      this.setState({ clicked: true });
 
-    // Also keeping track of correct and incorrect answers - NOT WORKING YET
-    // State looks like it changes in here, but is not reflected in render or navigate
-    let question = this.state.questions[this.state.currentQuestion];
+      this.setState({ pressedButton: buttonText });
 
-    if (buttonText === question.answer) {
-      this.setState({ numberCorrect: this.state.numberCorrect + 1})
-    } else {
-      this.setState({ numberIncorrect: this.state.numberIncorrect + 1})
+      // Also keeping track of correct and incorrect answers - NOT WORKING YET
+      // State looks like it changes in here, but is not reflected in render or navigate
+      let question = this.state.questions[this.state.currentQuestion];
+
+      if (buttonText === question.answer) {
+        this.setState({ numberCorrect: this.state.numberCorrect + 1})
+      } else {
+        this.setState({ numberIncorrect: this.state.numberIncorrect + 1})
+      }
     }
   }
 
