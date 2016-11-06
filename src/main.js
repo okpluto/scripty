@@ -17,6 +17,7 @@ import SignUpForm from './components/SignUpForm';
 import Lesson from './components/Lesson';
 import LessonComplete from './components/LessonComplete';
 import Profile from './components/Profile';
+import Home from './components/home'
 
 const Routes = {
   signIn: SignInForm,
@@ -25,7 +26,8 @@ const Routes = {
   lessonComplete: LessonComplete,
   lessonTitleCardList: LessonTitleCardList,
   lessonTitleCard: LessonTitleCard,
-  profile: Profile
+  profile: Profile,
+  home: Home
 };
 
 class Scripty extends Component {
