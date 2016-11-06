@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Lesson = require('../data/models/lesson');
 const Content = require('../data/models/content');
+const User = require('../data/models/user')
 
 const ObjectId = mongoose.Types.ObjectId;
 
@@ -42,14 +43,32 @@ exports.getLessonAndContentsById = (req, res) => {
 
 exports.createLesson = (req, res) => {
   req.body.published = false;
+  console.log(req.body)
   new Lesson(req.body)
     .save((err, lesson) => {
       if (err) {
         log.error("Rut roh~ ", err);
         send500(res, "Lesson wasn't saved correctly!!");
+      } else {
+        //Save the lesson id on the user
+        console.log(req.body.creator)
+        User.findById(req.body.creator, (err, user) => {
+          if (err) {
+            log.error(err)
+          } else {
+            user.createdLessons.push(lesson._id)
+            user.save((err, updatedUser) => {
+              if (err) {
+                log.error(err)
+              } else {
+                log.amazing("these are the users created lessons: ", updatedUser.createdLessons)
+              }
+            })
+          }
+        })
+        console.log("This is the lesson: ", lesson);
+        res.status(201).send(lesson._id);
       }
-      console.log("This is the lesson: ", lesson);
-      res.status(201).send(lesson._id);
     });
 };
 
@@ -68,6 +87,9 @@ exports.updateLessonById = (req, res) => {
         let newRating = lesson.userRating[0] === 0 ? req.body[key] :
         (currRating * numRatings + req.body[key]) / (numRatings + 1)
         lesson[key] = [newRating, ++numRatings]
+      } else if (key === 'published' && req.body[key] && lesson.length < 4) {
+        res.status(400).send("Lesson is too short to publish")
+        return;
       } else {
         lesson[key] = req.body[key];
       }
