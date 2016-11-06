@@ -26,6 +26,7 @@ const lessonSchema = mongoose.Schema({
   userRating: {type: Array, default: [0,0]},
   category: String,
   published: Boolean,
+  creator: mongoose.Schema.Types.ObjectId,
   length: {type: Number, default: 0}
 });
 
