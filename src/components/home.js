@@ -63,7 +63,7 @@ const styles = {
     color: successBlue
   },
   profileIconStyle: {
-    color: '#2CCC5A'
+    color: '#39304a'
   },
   rowStyle: {
     backgroundColor: 'white',

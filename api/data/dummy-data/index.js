@@ -14,6 +14,7 @@ const User = require('../models/user')
 const createdLesson = new Lesson({
   title: 'First Lesson',
   description: 'Welcome to Javascript!',
+  length: 7
 })
 .save((err, lesson) => {
   if (err) {
