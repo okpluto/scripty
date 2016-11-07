@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Text, View, Dimensions, TouchableHighlight } from 'react-native';
+import { Text, View, Dimensions, TouchableHighlight, AsyncStorage } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { localIp } from '../../config/ip.js'
+import { calculateStreak } from '../services/userServices'
 
 class LessonComplete extends Component {
   constructor(props) {
@@ -34,10 +35,45 @@ class LessonComplete extends Component {
   }
 
   saveResults() {
-    //TODO (Ivey): save results to DB
-    //save {lessonId, title, score} to user
-    //update streak on user
-    //update lastlessondate on user
+    const { lessonId, lessonTitle, numberCorrect, numberIncorrect } = this.props;
+    let totQs = numberCorrect + numberIncorrect;
+    let score = numberCorrect + '/' + totQs
+    let today = new Date();
+    AsyncStorage.multiGet(['id', 'jwt'])
+    .then(store => {
+      let url = `http://${localIp}:3011/api/users/${store[0][1]}`
+      fetch(url, {
+        headers: {
+          'authorization': store[1][1]
+        }
+      })
+      .then(user => user.json())
+      .then(user => {
+        //update streak on user
+        //update lastlessondate on user
+        let streak = calculateStreak(user.lastLessonDate)
+        let userStreak = 'reset'
+        if (streak === 0) {
+          userStreak = 'same'
+        } else if (streak === 1) {
+          userStreak = 'add'
+        }
+        //save {lessonId, title, score} to user
+        fetch(url, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            lessonId: lessonId,
+            title: lessonTitle,
+            score: score,
+            lastLessonDate: today,
+            streak: userStreak
+          })
+        })
+      })
+    })
 
     //saves rating to lesson
     let rating = this.state.rating.reduce((a, b) => a + b);

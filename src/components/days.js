@@ -8,10 +8,26 @@ class Days extends Component {
     super(props)
   }
 
+  getStreak() {
+    let streak = this.props.streak
+    let today = new Date().getDay()
+    if (today - streak[streak.length - 1] === 1 ||
+        today - streak[streak.length - 1] === 0 ||
+        today - streak[streak.length - 1] === -6) {
+      return streak.length
+    } else {
+      return '0'
+    }
+  }
+
   setDayHighlight(day) {
-    let highlights = this.props.streak;
-    let dayNum = days.indexOf(day);
-    return highlights.indexOf(dayNum) !== -1;
+    if (this.getStreak() !== '0') {
+      let highlights = this.props.streak;
+      let dayNum = days.indexOf(day).toString();
+      return highlights.indexOf(dayNum) !== -1;
+    } else {
+      return false
+    }
   }
 
   render() {
@@ -19,7 +35,7 @@ class Days extends Component {
     return (
       <View>
         <Text style={textStyle}>
-          Current Streak: {this.props.streak.length} Days
+          Current Streak: {this.getStreak()} Days
         </Text>
         <View style={dayStyle}>
           {days.map(day => (

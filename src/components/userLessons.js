@@ -5,7 +5,6 @@ import { Text, View, Dimensions, ScrollView } from 'react-native';
 class UserLessons extends Component {
   constructor(props) {
     super(props);
-    console.log(props)
   }
 
   getScoreStyle(score, style) {
@@ -16,13 +15,32 @@ class UserLessons extends Component {
     let scoreArray = score.split('/')
     let percent = Number(scoreArray[0]) / Number(scoreArray[1])
     let color = '#2CCC5A' //green
-    if (percent < 0.65) {
+    if (percent < 0.55) {
       color = '#FA6467' //red
-    } else if (percent < 0.85) {
+    } else if (percent < 0.80) {
       color = '#f2d204'
     }
     styleCopy.borderColor = color;
     return styleCopy
+  }
+
+  getUniqueLessons() {
+    let idArray = [];
+    let lessonsArray = [];
+    let lessons = this.props.user.lessons
+    lessons.forEach(lesson => {
+      if (idArray.indexOf(lesson.lessonId) === -1) {
+        idArray.push(lesson.lessonId)
+        lessonsArray.push(lesson)
+      } else {
+        lessonsArray.forEach((compLesson, i) => {
+          if (compLesson.lessonId === lesson.lessonId && lesson.score.charAt(0) > compLesson.score.charAt(0)) {
+            lessonsArray[i] = lesson
+          }
+        })
+      }
+    })
+    return lessonsArray;
   }
 
   getScrollHeight(style) {
@@ -30,7 +48,7 @@ class UserLessons extends Component {
     for (var key in style) {
       styleCopy[key] = style[key]
     }
-    let contentNum = this.props.user.lessons.length;
+    let contentNum = this.getUniqueLessons().length;
     let height = contentNum * 45 + 5
     styleCopy.height = height
     return styleCopy;
@@ -43,7 +61,7 @@ class UserLessons extends Component {
         <Text style={textStyle}>Your Lessons</Text>
         <View style={{height: 290, marginTop: 10}}>
           <ScrollView contentContainerStyle={this.getScrollHeight(scrollStyle)}>
-            {this.props.user.lessons.map(lesson => (
+            {this.getUniqueLessons().map(lesson => (
               <View style={lessonContainerStyle}>
                 <Text style={lessonStyle}>
                   {lesson.title}

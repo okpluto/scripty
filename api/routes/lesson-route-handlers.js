@@ -43,7 +43,6 @@ exports.getLessonAndContentsById = (req, res) => {
 
 exports.createLesson = (req, res) => {
   req.body.published = false;
-  console.log(req.body)
   new Lesson(req.body)
     .save((err, lesson) => {
       if (err) {
@@ -51,22 +50,13 @@ exports.createLesson = (req, res) => {
         send500(res, "Lesson wasn't saved correctly!!");
       } else {
         //Save the lesson id on the user
-        console.log(req.body.creator)
-        User.findById(req.body.creator, (err, user) => {
+        User.update({ _id: req.body.creator }, { $push: { createdLessons: lesson._id } }, (err, user) => {
           if (err) {
             log.error(err)
-          } else {
-            user.createdLessons.push(lesson._id)
-            user.save((err, updatedUser) => {
-              if (err) {
-                log.error(err)
-              } else {
-                log.amazing("these are the users created lessons: ", updatedUser.createdLessons)
-              }
-            })
           }
+          log.amazing(user)
         })
-        console.log("This is the lesson: ", lesson);
+        log.success("Lesson created")
         res.status(201).send(lesson._id);
       }
     });
@@ -78,10 +68,9 @@ exports.updateLessonById = (req, res) => {
     if (err) {
       log.error(err);
     }
-    console.log("LESSON ", lesson);
     for (var key in req.body) {
       // Update average rating
-      if (key === 'userRating') {
+      if (key === 'userRating' && !Array.isArray(req.body[key])) {
         let currRating = lesson.userRating[0]
         let numRatings = lesson.userRating[1]
         let newRating = lesson.userRating[0] === 0 ? req.body[key] :
