@@ -73,7 +73,7 @@ exports.updateLessonById = (req, res) => {
     console.log("LESSON ", lesson);
     for (var key in req.body) {
       // Update average rating
-      if (key === 'userRating') {
+      if (key === 'userRating' && !Array.isArray(req.body[key])) {
         let currRating = lesson.userRating[0]
         let numRatings = lesson.userRating[1]
         let newRating = lesson.userRating[0] === 0 ? req.body[key] :
