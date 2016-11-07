@@ -9,8 +9,12 @@ class Days extends Component {
   }
 
   getStreak() {
-    if (this.props.streak[this.props.streak.length - 1] == new Date().getDay().toString()) {
-      return this.props.streak.length
+    let streak = this.props.streak
+    let today = new Date().getDay()
+    if (today - streak[streak.length - 1] === 1 ||
+        today - streak[streak.length - 1] === 0 ||
+        today - streak[streak.length - 1] === -6) {
+      return streak.length
     } else {
       return '0'
     }
