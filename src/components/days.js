@@ -31,7 +31,7 @@ class Days extends Component {
   }
 
   render() {
-    const { dayStyle, circleActiveStyle, circleInactiveStyle, textStyle } = styles;
+    const { dayStyle, circleActiveStyle, circleInactiveStyle, textStyle, dayTextStyle } = styles;
     return (
       <View>
         <Text style={textStyle}>
@@ -39,7 +39,9 @@ class Days extends Component {
         </Text>
         <View style={dayStyle}>
           {days.map(day => (
-          <Text key={day} style={(this.setDayHighlight(day) ? circleActiveStyle : circleInactiveStyle)}>{day}</Text>
+            <View style={(this.setDayHighlight(day) ? circleActiveStyle : circleInactiveStyle)}>
+              <Text key={day} style={dayTextStyle}>{day}</Text>
+            </View>
           ))}
         </View>
       </View>
@@ -60,7 +62,7 @@ const styles = {
   dayStyle: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 10,
+    marginTop: 10
   },
   circleActiveStyle: {
     backgroundColor: coral,
@@ -68,11 +70,7 @@ const styles = {
     width: 40,
     height: 40,
     marginRight: 5,
-    textAlign: 'center',
     paddingTop: 5,
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: grey
   },
   circleInactiveStyle: {
     backgroundColor: 'grey',
@@ -80,10 +78,14 @@ const styles = {
     width: 40,
     height: 40,
     marginRight: 5,
-    textAlign: 'center',
     paddingTop: 5,
+  },
+  dayTextStyle: {
     fontSize: 20,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    color: grey,
+    lineHeight: 28,
+    alignSelf: 'center'
   }
 }
 

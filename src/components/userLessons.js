@@ -55,7 +55,7 @@ class UserLessons extends Component {
   }
 
   render() {
-    const { textStyle, lessonStyle, scrollStyle, scoreCircle, lessonContainerStyle } = styles;
+    const { textStyle, lessonStyle, scrollStyle, scoreCircle, lessonContainerStyle, circleTextStyle } = styles;
     return (
       <View>
         <Text style={textStyle}>Your Lessons</Text>
@@ -66,7 +66,9 @@ class UserLessons extends Component {
                 <Text style={lessonStyle}>
                   {lesson.title}
                 </Text>
-                <Text style={this.getScoreStyle(lesson.score, scoreCircle)}>{lesson.score}</Text>
+                <View style={this.getScoreStyle(lesson.score, scoreCircle)}>
+                  <Text style={circleTextStyle}>{lesson.score}</Text>
+                </View>
               </View>
             ))}
           </ScrollView>
@@ -103,22 +105,24 @@ const styles = {
   },
   scoreCircle: {
     borderRadius: 100/2,
-    width: 39,
-    height: 39,
+    width: 40,
+    height: 40,
     marginRight: 5,
-    textAlign: 'center',
     paddingTop: 7,
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: grey,
     borderWidth: 4,
-    backgroundColor: 'grey'
   },
   textStyle: {
     color: '#1c1c1c',
     fontSize: 22,
     lineHeight: 35,
     alignSelf: 'center'
+  },
+  circleTextStyle:{
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: 'gray',
+    alignSelf: 'center',
+
   }
 }
 
