@@ -52,21 +52,13 @@ exports.createLesson = (req, res) => {
       } else {
         //Save the lesson id on the user
         console.log(req.body.creator)
-        User.findById(req.body.creator, (err, user) => {
+        User.update({ _id: req.body.creator }, { $push: { createdLessons: lesson._id } }, (err, user) => {
           if (err) {
             log.error(err)
-          } else {
-            user.createdLessons.push(lesson._id)
-            user.save((err, updatedUser) => {
-              if (err) {
-                log.error(err)
-              } else {
-                log.amazing("these are the users created lessons: ", updatedUser.createdLessons)
-              }
-            })
           }
+          log.amazing(user)
         })
-        console.log("This is the lesson: ", lesson);
+        log.success("This is the lesson: ", lesson);
         res.status(201).send(lesson._id);
       }
     });
