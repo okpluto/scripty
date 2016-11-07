@@ -58,7 +58,7 @@ exports.createLesson = (req, res) => {
           }
           log.amazing(user)
         })
-        log.success("This is the lesson: ", lesson);
+        log.success("Lesson created")
         res.status(201).send(lesson._id);
       }
     });
@@ -70,7 +70,6 @@ exports.updateLessonById = (req, res) => {
     if (err) {
       log.error(err);
     }
-    console.log("LESSON ", lesson);
     for (var key in req.body) {
       // Update average rating
       if (key === 'userRating' && !Array.isArray(req.body[key])) {
