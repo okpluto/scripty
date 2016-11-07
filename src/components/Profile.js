@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Dimensions } from 'react-native';
+import { Text, View, Dimensions, AsyncStorage } from 'react-native';
 import { localIp } from '../../config/ip.js'
 import UserLessons from './userLessons'
 import Days from './days'
@@ -20,13 +20,20 @@ class Profile extends Component {
     //Using get all users to test dummy user
     //Need to get user by ID once signin
     //and save users to DB is implemented
-    let url=`http://${localIp}:3011/api/users`
-    fetch(url)
-    .then(user => {
-      return user.json()
-    })
-    .then(user => {
-      this.setState({user: user[0]});
+    AsyncStorage.multiGet(['id', 'jwt'])
+    .then((store) => {
+      let url=`http://${localIp}:3011/api/users/${store[0][1]}`
+      fetch(url, {
+        headers:{
+          'authorization': store[1][1]
+        }
+      })
+      .then(user => {
+        return user.json()
+      })
+      .then(user => {
+        this.setState({user: user});
+      })
     })
   }
 
