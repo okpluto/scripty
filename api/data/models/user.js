@@ -15,15 +15,17 @@ var SALT_WORK_FACTOR = 10;
  * @password: <String>
  *  Believe it or not: it's the user's password.
  **/
-
+let today = new Date()
+let day = today.getDay()
+ day = 0
 const userSchema = mongoose.Schema({
   name: String,
   password: String,
   email: {type: String, index: {unique: true}},
   lessons: [],
   createdLessons: [],
-  lastLessonDate: Date,
-  streak: [Number],
+  lastLessonDate: {type: Date, default: today},
+  streak: {type: [String], default: [day.toString()]},
   salt: String
 });
 
@@ -56,6 +58,7 @@ userSchema.pre('save', function (next) {
       // override the cleartext password with the hashed one
       user.password = hash;
       user.salt = salt;
+
       next();
     });
 
