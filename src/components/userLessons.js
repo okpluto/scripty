@@ -26,18 +26,21 @@ class UserLessons extends Component {
 
   getUniqueLessons() {
     let idArray = [];
+    let lessonsArray = [];
     let lessons = this.props.user.lessons
-    .sort((a, b) => Number(a.score.charAt(0)) < Number(b.score.charAt(0)))
-    lessons = lessons.filter(lesson => {
+    lessons.forEach(lesson => {
       if (idArray.indexOf(lesson.lessonId) === -1) {
-        console.log(idArray)
         idArray.push(lesson.lessonId)
-        return true;
+        lessonsArray.push(lesson)
       } else {
-        return false;
+        lessonsArray.forEach((compLesson, i) => {
+          if (compLesson.lessonId === lesson.lessonId && lesson.score.charAt(0) > compLesson.score.charAt(0)) {
+            lessonsArray[i] = lesson
+          }
+        })
       }
     })
-    return lessons;
+    return lessonsArray;
   }
 
   getScrollHeight(style) {
