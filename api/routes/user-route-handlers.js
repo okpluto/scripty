@@ -21,11 +21,9 @@ exports.getUsers = (req, res) => {
 
 // TODO(Mitch): Needs testing.
 exports.getUserById = (req, res) => {
-  console.log('request received');
   const id = req.params.id;
   User.findById(id)
   .then(user => {
-    console.log(user)
     res.status(200).json(user)
   })
 };
@@ -76,36 +74,41 @@ exports.createUser = (req, res) => {
 exports.updateUserById = (req, res) => {
   const id = req.params.id;
   log.amazing('message received', req.body)
-  let day = new Date(req.body.lastLessonDate).getDay().toString()
-  if (req.body.streak === 'reset') {
-    User.update({ _id: req.params.id}, { $set: {
-      streak: [day],
-      lastLessonDate: req.body.lastLessonDate
-    } })
-  } else if (req.body.streak === 'same') {
-    User.update({ _id: req.params.id}, { $set: {
-      lastLessonDate: req.body.lastLessonDate
-    } })
-  } else if (req.body.streak === 'add') {
-    log.warning('should push to streak', day)
-    User.update({ _id: req.params.id }, {
-      $push: {
-        streak: day
-      },
-      $set: {
-        lastLessonDate: req.body.lastLessonDate
-      } })
-  }
   User.update({ _id: req.params.id }, { $push: {
     lessons: {
       lessonId: req.body.lessonId,
       title: req.body.title,
       score: req.body.score
     } } }, (err, user) => {
-    if (err) {
-      log.error(err)
+      err ? log.error(err) : log.amazing("added lesson results to user")
+    // Update streak of days user has taken lessons
+    let day = new Date(req.body.lastLessonDate).getDay().toString()
+    if (req.body.streak === 'reset') {
+      log.warning("should reset users streak ", day)
+      User.update({ _id: req.params.id}, { $set: {
+        streak: [day],
+        lastLessonDate: req.body.lastLessonDate
+      } }, (err, user) => {
+        err ? log.error(err) : log.amazing("Streak reset")
+      })
+    } else if (req.body.streak === 'same') {
+      User.update({ _id: req.params.id}, { $set: {
+        lastLessonDate: req.body.lastLessonDate
+      } }, (err, user) => {
+        err ? log.error(err) : log.amazing("Updated last lesson date, streak unchanged")
+      })
+    } else if (req.body.streak === 'add') {
+      log.warning('should push to streak', day)
+      User.update({ _id: req.params.id }, {
+        $push: {
+          streak: day
+        },
+        $set: {
+          lastLessonDate: req.body.lastLessonDate
+        } }, (err, user) => {
+          err ? log.error(err) : log.amazing("Added to streak")
+        })
     }
-    log.amazing(user)
   })
 };
 
