@@ -43,7 +43,6 @@ exports.getLessonAndContentsById = (req, res) => {
 
 exports.createLesson = (req, res) => {
   req.body.published = false;
-  console.log(req.body)
   new Lesson(req.body)
     .save((err, lesson) => {
       if (err) {
@@ -51,7 +50,6 @@ exports.createLesson = (req, res) => {
         send500(res, "Lesson wasn't saved correctly!!");
       } else {
         //Save the lesson id on the user
-        console.log(req.body.creator)
         User.update({ _id: req.body.creator }, { $push: { createdLessons: lesson._id } }, (err, user) => {
           if (err) {
             log.error(err)
