@@ -42,8 +42,9 @@ class LessonTitleCardList extends Component {
         })
         .then((response) => response.json())
         .then((json) => {
+          let lessons = json.filter(lesson => lesson.published)
           this.setState({
-            'lessonDetails': json,
+            'lessonDetails': lessons,
             authorized: true
           })
           callback()
@@ -69,6 +70,8 @@ class LessonTitleCardList extends Component {
             this.state.lessonDetails.map(lesson => {
             return <LessonTitleCard lessonTitle={lesson.title}
               lessonId={lesson._id}
+              lessonDifficulty={lesson.difficultyRating}
+              lessonRating={lesson.userRating[0]}
               navigator={ this.props.navigator }
               key={lesson._id} />
             })
